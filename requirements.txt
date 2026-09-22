@@ -1,0 +1,12 @@
+# Core: what the environment, expert, DR and evaluation import.
+# Versions are the ones every number in the README was measured on.
+mujoco==3.13.0
+numpy>=1.26,<3
+
+# Optional. The LeRobot dataset writer needs Python >= 3.12.
+#   lerobot[dataset]==0.6.1
+# Optional. gymnasium adapter / PNG output from scripts.
+#   gymnasium
+#   pillow
+# Tests.
+pytest

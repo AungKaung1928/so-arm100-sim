@@ -1,0 +1,27 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    env:
+      OMP_NUM_THREADS: "1"
+      MUJOCO_GL: egl
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: system GL for offscreen rendering
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libegl1 libgl1 libosmesa6
+      - name: install
+        run: pip install -e ".[dev,gym,image]"
+      - name: tests
+        run: python -m pytest tests

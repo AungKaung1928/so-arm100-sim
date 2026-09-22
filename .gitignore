@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# recorded datasets and rendered frames are regenerated, never committed
+data/
+out/*
+!out/*.png
+runs/*
+!runs/*.json

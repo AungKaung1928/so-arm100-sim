@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "so-arm100-sim"
+version = "0.1.0"
+description = "MuJoCo tasks, scripted expert, domain randomisation and evaluation protocol for the Standard Open Arm 100"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "mujoco>=3.1.6",
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+lerobot = ["lerobot[dataset]>=0.6"]     # needs Python >= 3.12
+gym = ["gymnasium>=1.0"]
+image = ["pillow"]
+dev = ["pytest>=8"]
+
+[tool.setuptools]
+packages = ["so_arm100_sim"]
+
+[tool.setuptools.package-data]
+so_arm100_sim = ["assets/trs_so_arm100/*", "assets/trs_so_arm100/assets/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
