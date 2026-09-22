@@ -28,6 +28,8 @@ and will be filled in from its JSON, never typed in by hand.
 
 <img src="out/expert_filmstrip.png" width="100%" alt="expert filmstrip">
 
+**Walkthrough:** https://aungkaung1928.github.io/projects/so-arm100.html — the bench and the three policy projects built on it, explained end to end.
+
 ## What is in the box
 
 ```
@@ -189,6 +191,8 @@ scripts. Rendering needs a GL context: `MUJOCO_GL=glfw` with a display, or
 ```
 docker build -t so-arm100-sim . && docker run --rm so-arm100-sim
 ```
+
+Image built on 2026-09-23 and its default command passed inside it (59 tests passed, 4 skipped), image size 423 MB.
 
 ## Recording demonstrations
 
