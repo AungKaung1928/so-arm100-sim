@@ -16,9 +16,9 @@ Everything a learned policy is later measured against is defined once, here:
 the success criteria, the held-out physics, the seeds, the expert's own
 numbers.
 
-**Status: code complete, tests green, reference numbers not yet measured.**
-Every number below marked `TODO(measure)` is produced by the named script
-and will be filled in from its JSON, never typed in by hand.
+**Status: code complete, tests green, reference numbers measured.**
+Every number below comes from the named script's JSON in `runs/`, never
+typed in by hand.
 
 <p>
 <img src="out/camera_front.png" width="320" alt="front camera"> <img src="out/camera_top.png" width="320" alt="top camera">
@@ -144,36 +144,68 @@ is what set the spawn box and the lift height.
 
 | task | nominal | heavy | slippery | weak | laggy | noisy | small |
 |---|---|---|---|---|---|---|---|
-| reach | TODO(measure) | | | | | | |
-| push | TODO(measure) | | | | | | |
-| lift | TODO(measure) | | | | | | |
-| pick_place | TODO(measure) | | | | | | |
+| reach | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 |
+| push | 0.76 ± 0.07 | 0.79 ± 0.07 | 0.76 ± 0.07 | 0.74 ± 0.05 | 0.74 ± 0.05 | 0.76 ± 0.07 | 0.73 ± 0.06 |
+| lift | 0.93 ± 0.02 | 0.90 ± 0.02 | 0.93 ± 0.02 | 0.97 ± 0.02 | 0.92 ± 0.03 | 0.93 ± 0.02 | 0.73 ± 0.05 |
+| pick_place | 0.93 ± 0.01 | 0.85 ± 0.02 | 0.93 ± 0.01 | 0.96 ± 0.01 | 0.90 ± 0.04 | 0.93 ± 0.01 | 0.72 ± 0.05 |
 
-Development readings, 30 episodes and one seed, are what the test gates in
-`tests/test_expert.py` were set from and are **not** the reference: reach
-1.00 everywhere; lift 0.93 nominal / 0.87 small / 0.97 weak / 0.93 heavy;
-push 0.83 / 0.80 / 0.77 / 0.80; pick_place 0.93 / 0.80 / 0.93 / 0.90. The
-gates sit below those. The table above replaces them when it is measured.
+Mean ± standard deviation of the per-seed success rate across the 5 seeds.
+
+What the table says:
+
+- **The small object is the expert's real failure.** Lift and pick_place drop
+  from 0.93 to 0.73 / 0.72 when the cube shrinks. Every other perturbation
+  moves them by at most 0.08.
+- **Push is the weakest task everywhere.** It sits at 0.73–0.79 in every
+  column, and the seed spread (± 0.05–0.07) covers every column's difference
+  from nominal. The limit is the scripted push itself, not the physics.
+- **Heavy costs pick_place 0.08 but lift only 0.03.** The extra mass matters
+  during the carry, not the grasp.
+- **Weak actuators score slightly higher** on lift and pick_place (0.97 /
+  0.96). The slower approach knocks the cube less.
+
+The development readings (30 episodes, one seed) set the test gates in
+`tests/test_expert.py`. They overstated the small object: 0.87 lift and
+0.80 pick_place, against the measured 0.73 and 0.72. The seed spread above
+is why one seed at 30 episodes is not a reference. The gates only run on the
+nominal task and still sit below the measured values.
 
 ## Throughput
 
-`nice -n 10 python scripts/bench_throughput.py` → `runs/throughput.json`
+`nice -n 10 python scripts/bench_throughput.py --tag sN` → `runs/throughput_sN.json`
 
 One env step = 25 physics steps + `mj_forward` + observation and reward.
 Bare `mj_step` on this model measured 18 µs single-process during
 development, i.e. about 2,200 env-steps/s per process before any Python
-overhead; the sweep below is the number to budget from.
+overhead.
+
+Lift task, laptop CPU under WSL2 capped at 8 threads, on mains power, Windows
+"Balanced" power plan, a browser open. Mean ± sd over three stable sweeps
+(`runs/throughput_s1/s2/s3.json`):
 
 | processes | env-steps/s | efficiency |
 |---|---|---|
-| 1 | TODO(measure) | 100% |
-| 2 | TODO(measure) | |
-| 4 | TODO(measure) | |
-| 8 | TODO(measure) | |
+| 1 | 1,954 ± 49 | 100% |
+| 2 | 3,691 ± 34 | 94% |
+| 4 | 5,918 ± 358 | 76% |
+| 8 | 7,302 ± 569 | 47% |
 
-The sweep brackets every row with a single-process reference and marks the
+Each sweep brackets every row with a single-process reference and marks the
 JSON `stable: false` if the reference drifts more than 10% or trends
-monotonically; a table from an unstable sweep is not quoted.
+monotonically. The kept sweeps drifted at most +6.9%, +3.5% and +7.6%.
+
+**Warm-up protocol.** The first three attempts drifted 25–58% and are kept
+as `runs/discarded_throughput_*_unstable.json`. The cause was the power plan:
+on "Balanced" the CPU starts at a low clock, so the first reference read low
+and every later row looked faster. A 10 s, 8-process warm-up before the sweep,
+started once the load average was below 0.5, fixed it. One later attempt still
+drifted −15.9% and was discarded as well.
+
+**Sustained rate is lower.** The sweep rows are 15 s bursts. An 8-process run
+held for 12 × 15 s (`runs/sustained.json`) gave 7,432 in the first window and
+then settled at **5,361** (band 5,257–5,465), about 28% lower. WSL2 cannot read the CPU
+temperature, so thermal or power throttling is the likely cause but is not
+measured. Budget training from 5,361, not 7,302.
 
 ## Reproducing
 
