@@ -95,7 +95,7 @@ claim and not an interpolation claim.
 | factor | DR range (x nominal) | held-out cell |
 |---|---|---|
 | cube mass | 0.5 – 2.0 | `heavy` 3.0 |
-| cube sliding friction | 0.5 – 1.5 | `slippery` 0.3 |
+| cube sliding friction | 0.5 – 1.5 (only > 1.0 acts, see below) | `slippery` 0.3 (inert, see below) |
 | servo gain kp | 0.6 – 1.4 | `weak` 0.45 |
 | joint damping / frictionloss | 0.5 – 2.0 | -- |
 | cube half-extent | 10 – 15 mm | `small` 9 mm |
@@ -163,6 +163,15 @@ What the table says:
   during the carry, not the grasp.
 - **Weak actuators score slightly higher** on lift and pick_place (0.97 /
   0.96). The slower approach knocks the cube less.
+- **The `slippery` column is inert, and so is half the friction range.**
+  Nominal and slippery are bit-identical here and in every downstream table
+  (RL and imitation). `dr.py` scales the cube geom's sliding friction, but
+  MuJoCo gives a contact the larger friction of its two geoms, and the
+  fingers and floor stay at 1.0. So 0.3x never reaches the contact, and the
+  DR range 0.5–1.5 only acts above 1.0. Found while writing up the
+  imitation results; the column is kept as measured. Fixing it (scale the
+  finger and floor friction too, or give the cube a higher contact
+  `priority`) changes the bench and would be versioned as a new experiment.
 
 The development readings (30 episodes, one seed) set the test gates in
 `tests/test_expert.py`. They overstated the small object: 0.87 lift and
