@@ -4,7 +4,59 @@ MuJoCo tabletop tasks, a scripted expert, domain randomisation and one
 evaluation protocol for the [Standard Open Arm 100](https://github.com/TheRobotStudio/SO-ARM100),
 the 5-DOF + gripper arm behind Hugging Face LeRobot. CPU only, no framework.
 
-This repository is the shared floor under three policy projects:
+**Walkthrough:** https://aungkaung1928.github.io/projects/so-arm100.html — the bench and the three policy projects built on it, explained end to end.
+
+## At a glance
+
+The scripted expert placing the red cube on the marker with the other two cubes as distractors (`out/expert_filmstrip.png`):
+
+![expert filmstrip](out/expert_filmstrip.png)
+
+Four tasks, one success rule each, and what the scripted expert scores on them (100 episodes x 5 seeds, mean ± sd across seeds):
+
+| task | success rule | steps | expert, nominal | expert, worst held-out cell |
+|---|---|---|---|---|
+| `reach` | end effector within 2 cm of a point 3 cm above the cube | 100 | 1.00 ± 0.00 | 1.00 ± 0.00 (all cells) |
+| `push` | cube centre within 2.5 cm (xy) of the marker | 150 | 0.76 ± 0.07 | 0.73 ± 0.06 (`small`) |
+| `lift` | cube 5 cm above its resting height **and** both jaws touching it | 150 | 0.93 ± 0.02 | 0.73 ± 0.05 (`small`) |
+| `pick_place` | cube within 2.5 cm of the marker, on the table, released | 250 | 0.93 ± 0.01 | 0.72 ± 0.05 (`small`) |
+
+This repository is the shared floor under three policy projects. Everything a learned policy is later measured against is defined once, here: the success criteria, the held-out physics, the seeds, the expert's own numbers.
+
+```mermaid
+flowchart LR
+    B["so-arm100-sim<br/>ArmEnv · VecEnv · DRConfig · EVAL_PHYSICS<br/>ScriptedExpert · evaluate · instructions<br/>63 tests"]
+    RL["so-arm100-rl<br/>PPO, reach → push → lift curriculum<br/>with and without DR"]
+    IL["so-arm100-il<br/>BC → DAgger → ACT<br/>from scripted demonstrations"]
+    VLA["so-arm100-vla<br/>language-conditioned<br/>multitask policy"]
+    B -- "ArmEnv, VecEnv, DRConfig,<br/>EVAL_PHYSICS, evaluate" --> RL
+    B -- "ScriptedExpert, LeRobotRecorder,<br/>evaluate" --> IL
+    B -- "all of the above<br/>+ instructions" --> VLA
+```
+
+### Results
+
+| method | metric | value | condition |
+|---|---|---|---|
+| scripted expert | success, `lift` | 0.93 ± 0.02 | nominal, 100 ep x 5 seeds |
+| scripted expert | success, `lift` | 0.73 ± 0.05 | `small` cube (9 mm half-extent) |
+| scripted expert | success, `pick_place` | 0.93 ± 0.01 | nominal |
+| scripted expert | success, `pick_place` | 0.72 ± 0.05 | `small` cube |
+| scripted expert | success, `push` | 0.73 – 0.79 | every column, ± 0.05 – 0.07 seed spread |
+| `VecEnv`, 1 process | env-steps/s | 1,954 ± 49 | lift task, 15 s bursts, 3 sweeps |
+| `VecEnv`, 8 processes | env-steps/s | 7,302 ± 569 | 15 s bursts, 47% efficiency |
+| `VecEnv`, 8 processes | env-steps/s, sustained | 5,361 (5,257 – 5,465) | 12 x 15 s, about 28% below the burst figure |
+| Docker image | tests inside | 59 passed, 4 skipped | 423 MB, built 2026-09-23 |
+
+### Key points
+
+- **The small object is the expert's real failure.** Lift and pick_place drop from 0.93 to 0.73 / 0.72 when the cube half-extent shrinks to 9 mm; every other perturbation moves them by at most 0.08, and the 30-episode single-seed development readings had overstated these cells at 0.87 / 0.80.
+- **Push is the weakest task everywhere.** It sits at 0.73–0.79 in every column and the seed spread (± 0.05–0.07) covers every column's difference from nominal, so the limit is the scripted push itself, not the physics.
+- **Every held-out cell is outside the DR range.** `heavy` 3.0x mass, `weak` kp 0.45, `small` 9 mm, `laggy` 3 steps, `noisy` 3x each exceed the training range in at least one factor and `test_dr.py` asserts it, which is what makes a success rate under `EVAL_PHYSICS` a transfer claim.
+- **Budget training from 5,361 env-steps/s, not 7,302.** Eight processes burst at 7,302 ± 569 but settle at 5,361 (band 5,257–5,465) over 12 x 15 s; the first three throughput attempts drifted 25–58% until a 10 s warm-up fixed the low starting clock.
+- **The `slippery` column is inert, and so is half the friction range.** Nominal and slippery are bit-identical in every table: MuJoCo gives a contact the larger friction of its two geoms and the fingers and floor stay at 1.0, so 0.3x never reaches the contact and DR 0.5–1.5 only acts above 1.0.
+
+<details><summary><b>What is in the box</b></summary>
 
 | project | trains | consumes from here |
 |---|---|---|
@@ -12,25 +64,13 @@ This repository is the shared floor under three policy projects:
 | [`so-arm100-il`](https://github.com/AungKaung1928/so-arm100-il) | BC → DAgger → ACT from scripted demonstrations | `ScriptedExpert`, `LeRobotRecorder`, `evaluate` |
 | [`so-arm100-vla`](https://github.com/AungKaung1928/so-arm100-vla) | a language-conditioned multitask policy | all of the above plus `instructions` |
 
-Everything a learned policy is later measured against is defined once, here:
-the success criteria, the held-out physics, the seeds, the expert's own
-numbers.
-
 **Status: code complete, tests green, reference numbers measured.**
-Every number below comes from the named script's JSON in `runs/`, never
+Every number in this README comes from the named script's JSON in `runs/`, never
 typed in by hand.
 
 <p>
 <img src="out/camera_front.png" width="320" alt="front camera"> <img src="out/camera_top.png" width="320" alt="top camera">
 </p>
-
-`out/expert_filmstrip.png`: the scripted expert placing the red cube on the marker with the other two cubes as distractors.
-
-<img src="out/expert_filmstrip.png" width="100%" alt="expert filmstrip">
-
-**Walkthrough:** https://aungkaung1928.github.io/projects/so-arm100.html — the bench and the three policy projects built on it, explained end to end.
-
-## What is in the box
 
 ```
 so_arm100_sim/
@@ -54,7 +94,9 @@ The arm description is not edited. Everything the tasks need on top of it is
 attached in Python through `mujoco.MjSpec`, and `test_scene.py` hashes the
 vendored XML so an accidental edit fails CI.
 
-## The tasks
+</details>
+
+<details><summary><b>The tasks: success rules, observations, actions</b></summary>
 
 Four tasks, one cube colour each (`red`, `green`, `blue`), optionally with the
 other two cubes on the table as distractors. Control at 20 Hz over the model's
@@ -84,7 +126,9 @@ Two action conventions, both 6-d: `delta` in [-1, 1] added to the previous
 joint target (a zero action holds still), or `absolute` joint targets in
 radians, which is what a recorded dataset stores and what the real arm takes.
 
-## Domain randomisation and the held-out physics
+</details>
+
+<details><summary><b>Domain randomisation and the held-out physics</b></summary>
 
 `DRConfig` is what a training run samples at every reset. `EVAL_PHYSICS` is
 a fixed set of shifts a trained policy is evaluated on, and every one of
@@ -106,7 +150,9 @@ claim and not an interpolation claim.
 leaves the velocity bias alone, so a weaker motor is also a more damped one,
 which is what a weaker motor does.
 
-## The scripted expert
+</details>
+
+<details><summary><b>The scripted expert and its measured success</b></summary>
 
 IK waypoints per task, rate limited to 0.05 rad per step so the actions are
 smooth enough to learn from. It reads the cube's true pose from the
@@ -179,7 +225,9 @@ The development readings (30 episodes, one seed) set the test gates in
 is why one seed at 30 episodes is not a reference. The gates only run on the
 nominal task and still sit below the measured values.
 
-## Throughput
+</details>
+
+<details><summary><b>Throughput</b></summary>
 
 `nice -n 10 python scripts/bench_throughput.py --tag sN` → `runs/throughput_sN.json`
 
@@ -216,6 +264,8 @@ then settled at **5,361** (band 5,257–5,465), about 28% lower. WSL2 cannot rea
 temperature, so thermal or power throttling is the likely cause but is not
 measured. Budget training from 5,361, not 7,302.
 
+</details>
+
 ## Reproducing
 
 ```
@@ -235,7 +285,9 @@ docker build -t so-arm100-sim . && docker run --rm so-arm100-sim
 
 Image built on 2026-09-23 and its default command passed inside it (59 tests passed, 4 skipped), image size 423 MB.
 
-## Recording demonstrations
+<details><summary><b>Recording demonstrations, and the limits</b></summary>
+
+### Recording demonstrations
 
 ```
 python -m so_arm100_sim.record --root data/lift_red --repo-id local/so_arm100_lift_red \
@@ -248,7 +300,7 @@ the action, and an instruction sampled from the **training** templates in
 `instructions.py`. The held-out paraphrases and the held-out (task, colour)
 combinations are never written, so "unseen" means unseen.
 
-## Limits, stated
+### Limits, stated
 
 - Simulation only. No number here is a claim about the physical SO-ARM100.
 - Fixed cameras only; no wrist camera yet.
@@ -258,6 +310,8 @@ combinations are never written, so "unseen" means unseen.
   choice, documented above, not an oversight.
 - Rendering on the development machine is software GL at roughly 20 ms per
   96x128 frame, which bounds image-based data collection, not the physics.
+
+</details>
 
 ## Licence
 
