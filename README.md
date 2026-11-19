@@ -84,10 +84,11 @@ so_arm100_sim/
   evaluate.py             the protocol: 100 episodes x 5 seeds per cell, JSON with provenance
   instructions.py         language templates with train / held-out splits
   datasets.py, record.py  LeRobotDataset v3 writer and the demo recorder (optional extra)
+  smolvla_export.py       same demos in the smolvla_base layout: 3 cameras camera1-3, SO-100 units (deg, jaw 0-100)
   render.py, gym_adapter.py
 scripts/                  expert_success, bench_throughput, record_dataset, view_scene
 tools/                    probe_model (measured frames), reach_map (where top-down IK works)
-tests/                    63 checks; the expert's success gates are among them
+tests/                    68 checks; the expert's success gates are among them
 ```
 
 The arm description is not edited. Everything the tasks need on top of it is
