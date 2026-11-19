@@ -1,8 +1,8 @@
 """Demonstrations in the layout `lerobot/smolvla_base` was pretrained on.
 
 `datasets.py` stores the simulator's own units (radians, 15-d proprio, sim
-camera names). SmolVLA-base was pretrained on community SO-100/101 data, so a
-fine-tune starts closer to its prior when the data looks like that:
+camera names). SmolVLA-base was pretrained on community SO-100/101 data in
+this layout:
 
     observation.state            float32 [6]  5 body joints in degrees + jaw 0..100
     action                       float32 [6]  absolute joint targets, same units
@@ -13,7 +13,16 @@ fine-tune starts closer to its prior when the data looks like that:
 Units follow LeRobot's SO-100 follower: body joints `MotorNormMode.DEGREES`,
 gripper `RANGE_0_100` (lerobot robots/so_follower). The conversion fixes scale
 only: the sim's zero pose is not a real arm's calibration zero, so absolute
-offsets still differ from any real SO-100 dataset.
+offsets still differ from any real SO-100 dataset. At the sim home pose the
+Pitch joint is -90 deg, 4.0 std below the `so100` action mean in the
+smolvla_base normalizer stats (119.94 +- 52.41 deg): a sign or zero
+convention gap that only a real arm's calibration would settle.
+
+What the units change, and what they do not: a fine-tune with `lerobot-train`
+replaces the normalizer stats with this dataset's own (MEAN_STD), and a
+per-joint linear map such as rad -> deg cancels out of a z-score. So for
+fine-tuning, only the camera names and order matter; the units matter when
+running the base checkpoint with its own stats (zero-shot).
 
 fps stays 20 (the sim's control rate): SmolVLA indexes action chunks by step,
 not by seconds, so a 50-step chunk covers 2.5 s here.
