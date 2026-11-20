@@ -267,6 +267,35 @@ measured. Budget training from 5,361, not 7,302.
 
 </details>
 
+<details><summary><b>Real2sim: fitting the sim arm to a real SO-100</b></summary>
+
+Data: the public real dataset `lerobot/svla_so100_pickplace` (50 episodes, 30 fps).
+`action` is the leader-arm command, `observation.state` the follower position, both in
+degrees. `so_arm100_sim/real_replay.py` feeds each command to the MuJoCo arm for one frame
+and scores the mean |sim − real| per joint. A trajectory made by the sim itself replays with
+zero error (`tests/test_real_replay.py`).
+
+Measured in the data before any fit: the follower matches the command best 3 frames (100 ms)
+later, and when the command is still the shoulder sits 0.46 ± 0.09 deg below it (gravity on
+a position loop).
+
+`scripts/fit_real2sim.py` (`pip install -e ".[real2sim]"`, about 2.5 min on one core) fits in
+two Nelder-Mead stages on episodes 0–9 and scores episodes 40–49 (`runs/real2sim_fit.json`):
+
+| held-out, mean over 5 arm joints | error (deg) |
+|---|---|
+| menagerie defaults, mid-range zero offsets | 0.370 |
+| fitted offsets (Pitch, Elbow, Wrist_Pitch) | 0.349 |
+| fitted offsets + kp 38.5, dampratio 0.79, armature 0.098, frictionloss 0.25 | 0.294 |
+
+Limits. LeRobot puts degree zero at the middle of each operator's calibrated range, so the
+zero offsets are fitted, not known; the Elbow offset ends on its range bound. Stage 2 stopped
+at its evaluation cap (not converged), and passive damping came out 0.20 and 0.018 in two
+runs: the data does not pin it down. One arm, one dataset, 10 training episodes. The commit
+message of 9bb9e13 gives the baseline as 0.331; the correct value is 0.370 (table above).
+
+</details>
+
 ## Reproducing
 
 ```
