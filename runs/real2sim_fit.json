@@ -1,0 +1,78 @@
+{
+ "data": "d.parquet",
+ "train_episodes": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9
+ ],
+ "heldout_episodes": [
+  40,
+  41,
+  42,
+  43,
+  44,
+  45,
+  46,
+  47,
+  48,
+  49
+ ],
+ "offset_deg": [
+  -17.622,
+  -39.892,
+  36.525,
+  -54.88,
+  -89.912
+ ],
+ "offset_at_bound": [
+  false,
+  false,
+  true,
+  false,
+  false
+ ],
+ "fitted": {
+  "kp": 38.5054,
+  "dampratio": 0.7941,
+  "armature": 0.0975,
+  "frictionloss": 0.2489,
+  "damping": 0.0177
+ },
+ "stage_nfev": [
+  171,
+  250
+ ],
+ "stage_converged": [
+  true,
+  false
+ ],
+ "heldout_err_deg_midrange_offsets_defaults": [
+  0.224,
+  0.407,
+  0.75,
+  0.235,
+  0.235
+ ],
+ "heldout_err_deg_fitted_offsets_defaults": [
+  0.224,
+  0.305,
+  0.745,
+  0.234,
+  0.235
+ ],
+ "heldout_err_deg_fitted_all": [
+  0.202,
+  0.287,
+  0.673,
+  0.156,
+  0.152
+ ],
+ "seconds": 163.8
+}
