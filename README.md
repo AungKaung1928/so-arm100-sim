@@ -286,12 +286,17 @@ two Nelder-Mead stages on episodes 0–9 and scores episodes 40–49 (`runs/real
 |---|---|
 | menagerie defaults, mid-range zero offsets | 0.370 |
 | fitted offsets (Pitch, Elbow, Wrist_Pitch) | 0.349 |
-| fitted offsets + kp 38.5, dampratio 0.79, armature 0.098, frictionloss 0.25 | 0.294 |
+| fitted offsets + kp 38.8, dampratio 0.76, armature 0.103, frictionloss 0.25 | 0.294 |
 
 Limits. LeRobot puts degree zero at the middle of each operator's calibrated range, so the
 zero offsets are fitted, not known; the Elbow offset ends on its range bound. Stage 2 stopped
-at its evaluation cap (not converged), and passive damping came out 0.20 and 0.018 in two
-runs: the data does not pin it down. One arm, one dataset, 10 training episodes. The commit
+at its evaluation cap (not converged), and passive damping came out 0.20, 0.018 and 0.11 in
+three runs: the data does not pin it down.
+
+Refitting kp and frictionloss on each of episodes 10–29 alone (offsets fixed): kp median 35.9
+(p10–p90 32.6–39.0), frictionloss median 0.25 (0.22–0.28). kp sits inside the DR range
+(0.6–1.4 × 50); frictionloss is 2.2–2.8 × the nominal 0.1, outside the DR range (0.5–2.0 ×),
+so a policy trained with the current DR never sees friction this high. One arm, one dataset, 10 training episodes. The commit
 message of 9bb9e13 gives the baseline as 0.331; the correct value is 0.370 (table above).
 
 </details>

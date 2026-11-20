@@ -72,7 +72,10 @@ def main():
             return 1e3
         return err(to_params(x), off, tr).mean()
 
-    r2 = minimize(f_dyn, x0, method="Nelder-Mead", options=dict(xatol=1e-2, fatol=1e-4, maxfev=a.maxfev))
+    # explicit simplex: scipy's default steps 5% of each x0 entry, and log(dampratio=1) = 0 gets 0.00025
+    simplex = np.vstack([x0, x0 + np.log(1.5) * np.eye(len(x0))])
+    r2 = minimize(f_dyn, x0, method="Nelder-Mead",
+                  options=dict(xatol=1e-2, fatol=1e-4, maxfev=a.maxfev, initial_simplex=simplex))
     fitted = to_params(r2.x)
 
     res = {

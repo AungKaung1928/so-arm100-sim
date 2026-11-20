@@ -39,11 +39,11 @@
   false
  ],
  "fitted": {
-  "kp": 38.5054,
-  "dampratio": 0.7941,
-  "armature": 0.0975,
-  "frictionloss": 0.2489,
-  "damping": 0.0177
+  "kp": 38.7682,
+  "dampratio": 0.7589,
+  "armature": 0.1032,
+  "frictionloss": 0.2494,
+  "damping": 0.1063
  },
  "stage_nfev": [
   171,
@@ -68,11 +68,11 @@
   0.235
  ],
  "heldout_err_deg_fitted_all": [
-  0.202,
+  0.2,
   0.287,
-  0.673,
+  0.675,
   0.156,
   0.152
  ],
- "seconds": 163.8
+ "seconds": 157.9
 }
