@@ -300,8 +300,13 @@ fixed; `scripts/real2sim_spread.py` → `runs/real2sim_spread.json`): kp median 
 (0.6–1.4 × 50); frictionloss is 2.2–2.8 × the nominal 0.1, outside the DR range (0.5–2.0 ×),
 so a policy trained with the current DR never sees friction this high. `EVAL_PHYSICS["real_fit"]`
 (kp 0.78, frictionloss 2.5) makes it a held-out cell. The scripted expert is not hurt by it
-(lift and pick_place 0.97, push 0.75, nominal 0.93 / 0.93 / 0.76); no learned policy has been
-evaluated there yet.
+(lift and pick_place 0.97, push 0.75, nominal 0.93 / 0.93 / 0.76). The two PPO lift policies in
+[so-arm100-rl](https://github.com/AungKaung1928/so-arm100-rl) score 0.996 / 0.992 there (100 × 5).
+
+`DRConfig.real_informed()` is the default config with frictionloss widened to 0.5–3.5 ×, so it
+covers every per-episode fit (kp 0.64–0.89 ×, frictionloss 2.1–3.0 ×; `tests/test_dr.py` checks
+this against `runs/real2sim_spread.json`). For a policy trained with it, `real_fit` is in range:
+an interpolation cell, not a transfer cell. No policy has been trained with it yet.
 
 Transfer to a second real dataset, `lerobot/svla_so100_stacking` (`--dynamics-from`, `runs/real2sim_transfer.json`):
 offsets refit on its episodes 0–9, dynamics taken unchanged from the pick-place fit, scored on

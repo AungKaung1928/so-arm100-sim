@@ -114,3 +114,27 @@ def test_kp_affects_tracking():
         e.step(tgt)
         return abs(e.arm_qpos()[0] - q0[0])
     assert settle("weak") < settle("nominal")
+
+
+def test_real_informed_covers_refitted_real_servo():
+    """Every per-episode real fit (runs/real2sim_spread.json), as a factor of the
+    vendored value, can be sampled by DRConfig.real_informed(); the default
+    config misses frictionloss."""
+    import json
+    from pathlib import Path
+    spread = json.loads((Path(__file__).parents[1] / "runs/real2sim_spread.json").read_text())
+    m = scene.build_model(3)
+    kp0 = np.unique(np.round(m.actuator_gainprm[:, 0], 6))
+    fl0 = np.unique(np.round(m.dof_frictionloss[scene.arm_qvel_index(m)], 6))
+    assert len(kp0) == 1 and len(fl0) == 1
+    ip = spread["params"]
+    kp = np.array([e[ip.index("kp")] for e in spread["per_episode"]]) / kp0[0]
+    fl = np.array([e[ip.index("frictionloss")] for e in spread["per_episode"]]) / fl0[0]
+    cfg, default = DRConfig.real_informed(), DRConfig()
+    assert cfg.kp[0] <= kp.min() and kp.max() <= cfg.kp[1]
+    assert cfg.frictionloss[0] <= fl.min() and fl.max() <= cfg.frictionloss[1]
+    assert cfg.frictionloss[0] <= 1.0 <= cfg.frictionloss[1]
+    assert fl.max() > default.frictionloss[1]
+    for k, v in EVAL_PHYSICS["real_fit"].items():
+        lo, hi = getattr(cfg, k)
+        assert lo <= v <= hi, k

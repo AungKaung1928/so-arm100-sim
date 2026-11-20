@@ -59,6 +59,17 @@ class DRConfig:
                    cube_size=(scene.CUBE_HALF, scene.CUBE_HALF), latency=(0, 0),
                    obs_noise_q=0.0, obs_noise_pos=0.0)
 
+    @classmethod
+    def real_informed(cls):
+        """Default ranges, with frictionloss widened to cover the servo refitted
+        on 20 single real SO-100 episodes (scripts/real2sim_spread.py,
+        runs/real2sim_spread.json): frictionloss 0.213-0.296 = x2.1-3.0 of 0.1,
+        above the default top of x2.0. kp 32.2-44.6 = x0.64-0.89 of 50 is
+        already inside the default (0.6, 1.4). EVAL_PHYSICS["real_fit"] is
+        inside this config, so for a policy trained on it, real_fit is
+        interpolation, not transfer."""
+        return cls(frictionloss=(0.5, 3.5))
+
     def sample(self, rng):
         """One draw of concrete factors, as a plain dict `Physics.apply` takes."""
         return {
