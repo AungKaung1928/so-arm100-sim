@@ -94,6 +94,9 @@ EVAL_PHYSICS = {
     "laggy":    {"latency": 3},             # DR tops out at 2
     "noisy":    {"obs_noise_q": 0.015, "obs_noise_pos": 0.009},   # 3x DR noise
     "small":    {"cube_size": 0.009},       # DR floors at 0.010
+    # servo fitted to real SO-100 data (scripts/fit_real2sim.py, runs/real2sim_fit.json):
+    # kp 38.8 / 50, frictionloss 0.249 / 0.1. DR frictionloss tops out at 2.0
+    "real_fit": {"kp": 0.78, "frictionloss": 2.5},
 }
 
 

@@ -142,7 +142,7 @@ claim and not an interpolation claim.
 | cube mass | 0.5 – 2.0 | `heavy` 3.0 |
 | cube sliding friction | 0.5 – 1.5 (only > 1.0 acts, see below) | `slippery` 0.3 (inert, see below) |
 | servo gain kp | 0.6 – 1.4 | `weak` 0.45 |
-| joint damping / frictionloss | 0.5 – 2.0 | -- |
+| joint damping / frictionloss | 0.5 – 2.0 | `real_fit`: frictionloss 2.5 with kp 0.78 (fitted to real data, see Real2sim) |
 | cube half-extent | 10 – 15 mm | `small` 9 mm |
 | action latency | 0 – 2 steps | `laggy` 3 |
 | observation noise (rad, m) | 0.005, 0.003 | `noisy` 3x |
@@ -187,14 +187,15 @@ is what set the spawn box and the lift height.
 
 ### Expert success, 100 episodes x 5 seeds per cell
 
-`python scripts/expert_success.py` → `runs/expert_success.json`
+`python scripts/expert_success.py` → `runs/expert_success.json`; the `real_fit` column:
+`--physics real_fit --tag realfit` → `runs/expert_success_realfit.json` (added 2026-11-20, same env and expert code)
 
-| task | nominal | heavy | slippery | weak | laggy | noisy | small |
-|---|---|---|---|---|---|---|---|
-| reach | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 |
-| push | 0.76 ± 0.07 | 0.79 ± 0.07 | 0.76 ± 0.07 | 0.74 ± 0.05 | 0.74 ± 0.05 | 0.76 ± 0.07 | 0.73 ± 0.06 |
-| lift | 0.93 ± 0.02 | 0.90 ± 0.02 | 0.93 ± 0.02 | 0.97 ± 0.02 | 0.92 ± 0.03 | 0.93 ± 0.02 | 0.73 ± 0.05 |
-| pick_place | 0.93 ± 0.01 | 0.85 ± 0.02 | 0.93 ± 0.01 | 0.96 ± 0.01 | 0.90 ± 0.04 | 0.93 ± 0.01 | 0.72 ± 0.05 |
+| task | nominal | heavy | slippery | weak | laggy | noisy | small | real_fit |
+|---|---|---|---|---|---|---|---|---|
+| reach | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 |
+| push | 0.76 ± 0.07 | 0.79 ± 0.07 | 0.76 ± 0.07 | 0.74 ± 0.05 | 0.74 ± 0.05 | 0.76 ± 0.07 | 0.73 ± 0.06 | 0.75 ± 0.05 |
+| lift | 0.93 ± 0.02 | 0.90 ± 0.02 | 0.93 ± 0.02 | 0.97 ± 0.02 | 0.92 ± 0.03 | 0.93 ± 0.02 | 0.73 ± 0.05 | 0.97 ± 0.01 |
+| pick_place | 0.93 ± 0.01 | 0.85 ± 0.02 | 0.93 ± 0.01 | 0.96 ± 0.01 | 0.90 ± 0.04 | 0.93 ± 0.01 | 0.72 ± 0.05 | 0.97 ± 0.01 |
 
 Mean ± standard deviation of the per-seed success rate across the 5 seeds.
 
@@ -297,7 +298,10 @@ Refitting kp, dampratio, armature and frictionloss on each of episodes 10–29 a
 fixed; `scripts/real2sim_spread.py` → `runs/real2sim_spread.json`): kp median 35.7 (p10–p90
 32.6–38.7), frictionloss median 0.25 (0.22–0.28). kp sits inside the DR range
 (0.6–1.4 × 50); frictionloss is 2.2–2.8 × the nominal 0.1, outside the DR range (0.5–2.0 ×),
-so a policy trained with the current DR never sees friction this high.
+so a policy trained with the current DR never sees friction this high. `EVAL_PHYSICS["real_fit"]`
+(kp 0.78, frictionloss 2.5) makes it a held-out cell. The scripted expert is not hurt by it
+(lift and pick_place 0.97, push 0.75, nominal 0.93 / 0.93 / 0.76); no learned policy has been
+evaluated there yet.
 
 Transfer to a second real dataset, `lerobot/svla_so100_stacking` (`--dynamics-from`, `runs/real2sim_transfer.json`):
 offsets refit on its episodes 0–9, dynamics taken unchanged from the pick-place fit, scored on
