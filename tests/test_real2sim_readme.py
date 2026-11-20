@@ -38,3 +38,15 @@ def test_spread_sentence_matches_json():
     fl = f"frictionloss median {med['frictionloss']:.2f} ({p10['frictionloss']:.2f}–{p90['frictionloss']:.2f})"
     assert kp in README, kp
     assert fl in README, fl
+
+
+def test_transfer_sentence_matches_json():
+    tr = json.loads((ROOT / "runs/real2sim_transfer.json").read_text())
+    errs = [_mean3(tr[k]) for k in ("heldout_err_deg_midrange_offsets_defaults",
+                                    "heldout_err_deg_fitted_offsets_defaults",
+                                    "heldout_err_deg_fitted_all")]
+    text = " ".join(README.split())
+    assert f"Mean error {errs[0]} (defaults, mid-range offsets) → {errs[1]} (own offsets) → {errs[2]} deg" in text, errs
+    elbow = f"(Elbow {tr['offset_deg'][2]:.0f} vs {FIT['offset_deg'][2]:.0f} deg)"  # index 2 = Elbow
+    assert elbow in text, elbow
+    assert sum(tr["offset_at_bound"]) == 2 and "two of them end on a range bound" in text
