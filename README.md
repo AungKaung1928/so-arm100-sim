@@ -297,7 +297,14 @@ Refitting kp, dampratio, armature and frictionloss on each of episodes 10–29 a
 fixed; `scripts/real2sim_spread.py` → `runs/real2sim_spread.json`): kp median 35.7 (p10–p90
 32.6–38.7), frictionloss median 0.25 (0.22–0.28). kp sits inside the DR range
 (0.6–1.4 × 50); frictionloss is 2.2–2.8 × the nominal 0.1, outside the DR range (0.5–2.0 ×),
-so a policy trained with the current DR never sees friction this high. One arm, one dataset, 10 training episodes. The commit
+so a policy trained with the current DR never sees friction this high.
+
+Transfer to a second real dataset, `lerobot/svla_so100_stacking` (`--dynamics-from`, `runs/real2sim_transfer.json`):
+offsets refit on its episodes 0–9, dynamics taken unchanged from the pick-place fit, scored on
+episodes 46–55. Mean error 0.463 (defaults, mid-range offsets) → 0.439 (own offsets) → 0.342 deg
+(pick-place dynamics). The stacking offsets differ from the pick-place ones (Elbow 77 vs 37 deg)
+and two of them end on a range bound, so the zero convention is not shared between the two
+recordings, or the offsets are poorly constrained by these motions. One arm, one dataset, 10 training episodes. The commit
 message of 9bb9e13 gives the baseline as 0.331; the correct value is 0.370 (table above).
 
 </details>

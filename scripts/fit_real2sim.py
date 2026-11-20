@@ -8,6 +8,11 @@ Data: meta + data parquet of lerobot/svla_so100_pickplace (data/chunk-000/file-0
 Single process; about 2.5 min on one core at the defaults.
 
     python scripts/fit_real2sim.py PATH/file-000.parquet --out runs/real2sim_fit.json
+
+Transfer check on another dataset: stage 1 fits that dataset's own offsets, stage 2 is skipped and the
+dynamics come from an earlier fit:
+
+    python scripts/fit_real2sim.py STACKING.parquet --dynamics-from runs/real2sim_fit.json --out runs/real2sim_transfer.json
 """
 import argparse
 import json
@@ -31,6 +36,7 @@ def main():
     ap.add_argument("--train", type=int, default=10)
     ap.add_argument("--heldout", type=int, default=10)
     ap.add_argument("--maxfev", type=int, default=250)
+    ap.add_argument("--dynamics-from", help="fit json: skip stage 2, use its fitted params")
     ap.add_argument("--out", default="runs/real2sim_fit.json")
     a = ap.parse_args()
 
@@ -72,18 +78,25 @@ def main():
             return 1e3
         return err(to_params(x), off, tr).mean()
 
-    # explicit simplex: scipy's default steps 5% of each x0 entry, and log(dampratio=1) = 0 gets 0.00025
-    simplex = np.vstack([x0, x0 + np.log(1.5) * np.eye(len(x0))])
-    r2 = minimize(f_dyn, x0, method="Nelder-Mead",
-                  options=dict(xatol=1e-2, fatol=1e-4, maxfev=a.maxfev, initial_simplex=simplex))
-    fitted = to_params(r2.x)
+    if a.dynamics_from:
+        with open(a.dynamics_from) as fh:
+            fitted = Params(**json.load(fh)["fitted"])
+        nfev2, conv2 = 0, None
+    else:
+        # explicit simplex: scipy's default steps 5% of each x0 entry, and log(dampratio=1) = 0 gets 0.00025
+        simplex = np.vstack([x0, x0 + np.log(1.5) * np.eye(len(x0))])
+        r2 = minimize(f_dyn, x0, method="Nelder-Mead",
+                      options=dict(xatol=1e-2, fatol=1e-4, maxfev=a.maxfev, initial_simplex=simplex))
+        fitted = to_params(r2.x)
+        nfev2, conv2 = int(r2.nfev), bool(r2.success)
 
     res = {
         "data": a.parquet.split("/")[-1], "train_episodes": tr, "heldout_episodes": te,
         "offset_deg": np.rad2deg(off).round(3).tolist(),
         "offset_at_bound": [bool(min(abs(off[j] - olo[j]), abs(off[j] - ohi[j])) < 1e-2) for j in range(5)],
         "fitted": {k: round(float(getattr(fitted, k)), 4) for k in NAMES},
-        "stage_nfev": [int(r1.nfev), int(r2.nfev)], "stage_converged": [bool(r1.success), bool(r2.success)],
+        "dynamics_from": a.dynamics_from,
+        "stage_nfev": [int(r1.nfev), nfev2], "stage_converged": [bool(r1.success), conv2],
         "heldout_err_deg_midrange_offsets_defaults": err(default, off0, te).round(3).tolist(),
         "heldout_err_deg_fitted_offsets_defaults": err(default, off, te).round(3).tolist(),
         "heldout_err_deg_fitted_all": err(fitted, off, te).round(3).tolist(),

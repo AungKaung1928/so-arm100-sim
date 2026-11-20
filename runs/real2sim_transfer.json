@@ -1,0 +1,79 @@
+{
+ "data": "svla_so100_stacking.parquet",
+ "train_episodes": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9
+ ],
+ "heldout_episodes": [
+  46,
+  47,
+  48,
+  49,
+  50,
+  51,
+  52,
+  53,
+  54,
+  55
+ ],
+ "offset_deg": [
+  0.088,
+  -53.839,
+  77.13,
+  -90.628,
+  -86.528
+ ],
+ "offset_at_bound": [
+  false,
+  true,
+  true,
+  false,
+  false
+ ],
+ "fitted": {
+  "kp": 38.7682,
+  "dampratio": 0.7589,
+  "armature": 0.1032,
+  "frictionloss": 0.2494,
+  "damping": 0.1063
+ },
+ "dynamics_from": "runs/real2sim_fit.json",
+ "stage_nfev": [
+  197,
+  0
+ ],
+ "stage_converged": [
+  true,
+  null
+ ],
+ "heldout_err_deg_midrange_offsets_defaults": [
+  0.193,
+  0.739,
+  0.917,
+  0.229,
+  0.237
+ ],
+ "heldout_err_deg_fitted_offsets_defaults": [
+  0.193,
+  0.612,
+  0.926,
+  0.227,
+  0.237
+ ],
+ "heldout_err_deg_fitted_all": [
+  0.146,
+  0.452,
+  0.843,
+  0.136,
+  0.134
+ ],
+ "seconds": 52.8
+}
