@@ -6,7 +6,7 @@ dist/
 .pytest_cache/
 
 # recorded datasets and rendered frames are regenerated, never committed
-data/
+/data/
 out/*
 !out/*.png
 runs/*

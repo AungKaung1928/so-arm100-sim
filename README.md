@@ -312,7 +312,12 @@ recordings, or the offsets are poorly constrained by these motions.
 
 Related: mujoco_menagerie issue #368 (opened 2026-11-17) fits STS3215 servo actuators for the
 SO-101 model against 12 real arms and 10 public LeRobot SO-101 datasets, with tip-space error.
-This section uses the SO-100 model and joint-space error, so the numbers are not comparable. One arm, one dataset, 10 training episodes. The commit
+This section uses the SO-100 model and joint-space error, so the numbers are not comparable.
+
+CI gate on a real log: `tests/test_real_regression.py` replays held-out episode 40 (committed as
+`tests/data/svla_so100_pickplace_ep40.npz`, 9 KB, Apache-2.0) with the committed fit and fails above
+0.37 deg (measured 0.345; defaults 0.423). Injected regressions it catches: gain 20 → 0.682, gain 80 →
+0.611, 2-frame command delay → 0.758 deg. One arm, one dataset, 10 training episodes. The commit
 message of 9bb9e13 gives the baseline as 0.331; the correct value is 0.370 (table above).
 
 </details>
