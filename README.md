@@ -308,7 +308,11 @@ offsets refit on its episodes 0–9, dynamics taken unchanged from the pick-plac
 episodes 46–55. Mean error 0.463 (defaults, mid-range offsets) → 0.439 (own offsets) → 0.342 deg
 (pick-place dynamics). The stacking offsets differ from the pick-place ones (Elbow 77 vs 37 deg)
 and two of them end on a range bound, so the zero convention is not shared between the two
-recordings, or the offsets are poorly constrained by these motions. One arm, one dataset, 10 training episodes. The commit
+recordings, or the offsets are poorly constrained by these motions.
+
+Related: mujoco_menagerie issue #368 (opened 2026-11-17) fits STS3215 servo actuators for the
+SO-101 model against 12 real arms and 10 public LeRobot SO-101 datasets, with tip-space error.
+This section uses the SO-100 model and joint-space error, so the numbers are not comparable. One arm, one dataset, 10 training episodes. The commit
 message of 9bb9e13 gives the baseline as 0.331; the correct value is 0.370 (table above).
 
 </details>
