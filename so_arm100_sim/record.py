@@ -10,6 +10,9 @@ language instruction sampled from the training templates for that
     python -m so_arm100_sim.record --root data/lift_red --repo-id local/so_arm100_lift_red \
         --tasks lift:red --episodes 50 --cameras front
 
+`--smolvla` writes the smolvla_base layout instead (smolvla_export.py): the
+three cameras top/front/side as camera1..3, 6-d state, SO-100 units.
+
 Requires the `lerobot` extra (Python >= 3.12) and a GL context. Lives in the
 package (not only under scripts/) so a consumer that installed this from git
 can call `python -m so_arm100_sim.record` or import `record_episode`.
@@ -23,6 +26,7 @@ import numpy as np
 
 from . import instructions as I
 from .datasets import LeRobotRecorder
+from . import smolvla_export as SX
 from .dr import DRConfig
 from .env import ArmEnv, TaskSpec, CONTROL_HZ
 from .expert import ScriptedExpert
@@ -56,13 +60,19 @@ def main(argv=None):
     ap.add_argument("--width", type=int, default=128)
     ap.add_argument("--dr", action="store_true", help="randomise physics per episode")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--smolvla", action="store_true",
+                    help="smolvla_base layout; overrides --cameras with top/front/side")
     ap.add_argument("--max-attempts", type=int, default=3, help="x episodes, before giving up")
     a = ap.parse_args(argv)
 
-    rec = LeRobotRecorder(a.root, a.repo_id, fps=CONTROL_HZ, cameras=a.cameras,
-                          height=a.height, width=a.width)
+    if a.smolvla:
+        a.cameras = list(SX.CAMERA_MAP.values())
+        rec = SX.SmolVLARecorder(a.root, a.repo_id, fps=CONTROL_HZ, height=a.height, width=a.width)
+    else:
+        rec = LeRobotRecorder(a.root, a.repo_id, fps=CONTROL_HZ, cameras=a.cameras,
+                              height=a.height, width=a.width)
     rng = np.random.default_rng(a.seed)
-    log = {"tasks": {}, "cameras": a.cameras, "size": [a.height, a.width], "dr": a.dr}
+    log = {"tasks": {}, "cameras": a.cameras, "smolvla": a.smolvla, "size": [a.height, a.width], "dr": a.dr}
     t0 = time.perf_counter()
     for spec in a.tasks:
         task = TaskSpec.parse(spec)

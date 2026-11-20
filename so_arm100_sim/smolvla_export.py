@@ -87,12 +87,16 @@ class SmolVLARecorder:
         self.ds = LeRobotDataset.create(
             repo_id=repo_id, fps=int(fps), root=str(root), robot_type="so100_follower",
             features=features(height, width), use_videos=False)
+        self.n_frames = 0
+        self.n_episodes = 0
 
     def add_episode(self, frames):
         """frames: list of dict(state, action, task, images={cam: HxWx3 uint8})."""
         for fr in frames:
             self.ds.add_frame(frame(fr["state"], fr["action"], fr["task"], fr["images"]))
+            self.n_frames += 1
         self.ds.save_episode()
+        self.n_episodes += 1
 
     def finalize(self):
         self.ds.finalize()
