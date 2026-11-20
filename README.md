@@ -293,8 +293,9 @@ zero offsets are fitted, not known; the Elbow offset ends on its range bound. St
 at its evaluation cap (not converged), and passive damping came out 0.20, 0.018 and 0.11 in
 three runs: the data does not pin it down.
 
-Refitting kp and frictionloss on each of episodes 10–29 alone (offsets fixed): kp median 35.9
-(p10–p90 32.6–39.0), frictionloss median 0.25 (0.22–0.28). kp sits inside the DR range
+Refitting kp, dampratio, armature and frictionloss on each of episodes 10–29 alone (offsets
+fixed; `scripts/real2sim_spread.py` → `runs/real2sim_spread.json`): kp median 35.7 (p10–p90
+32.6–38.7), frictionloss median 0.25 (0.22–0.28). kp sits inside the DR range
 (0.6–1.4 × 50); frictionloss is 2.2–2.8 × the nominal 0.1, outside the DR range (0.5–2.0 ×),
 so a policy trained with the current DR never sees friction this high. One arm, one dataset, 10 training episodes. The commit
 message of 9bb9e13 gives the baseline as 0.331; the correct value is 0.370 (table above).
