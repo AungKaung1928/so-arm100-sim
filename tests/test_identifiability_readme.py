@@ -6,6 +6,7 @@ ROOT = Path(__file__).parents[1]
 README = " ".join((ROOT / "README.md").read_text().split())
 ID = json.loads((ROOT / "runs/real2sim_identifiability.json").read_text())
 STACK = json.loads((ROOT / "runs/real2sim_identifiability_stacking.json").read_text())
+SPREAD = json.loads((ROOT / "runs/real2sim_spread.json").read_text())
 
 
 def _inc(params, name, m, kind="profile"):
@@ -47,3 +48,20 @@ def test_claims_match_json():
 
 def test_stacking_damping_flat():
     assert max(abs(_inc(STACK["params"], "damping", m, "slice")) for m in (0.5, 0.71, 0.84, 1.19, 1.41, 2.0)) < 0.006
+
+
+def test_stacking_full_paragraph_matches_json():
+    S = json.loads((ROOT / "runs/real2sim_identifiability_stacking_full.json").read_text())
+    c, p = S["convergence"], S["params"]
+    v = c["converged"]
+    assert c["restarts"][-1]["converged"]
+    assert f"converges in {c['restarts'][-1]['nfev']} evaluations to kp {v['kp']:.1f}," in README
+    assert f"frictionloss {v['frictionloss']:.2f}, armature {v['armature']:.3f}; held-out" in README
+    assert f"held-out {c['heldout_err_deg_fit']:.3f} → {c['heldout_err_deg_converged']:.3f} deg" in README
+    assert f"(0.5× costs +{_inc(p, 'kp', 0.5):.3f} deg)" in README
+    pk = ID["convergence"]["converged"]["kp"]
+    assert f"sits {100 * (1 - v['kp'] / pk):.0f} % below the pick-place value ({pk:.1f})" in README
+    lo, hi = SPREAD["p10"]["kp"], SPREAD["p90"]["kp"]
+    assert f"p10–p90 band ({lo:.1f}–{hi:.1f})" in README and v["kp"] < lo and v["kp"] < 0.6 * 50
+    assert max(abs(_inc(p, "damping", m)) for m in (0.25, 0.5, 0.71, 0.84, 1.19, 1.41, 2.0, 4.0)) < 0.001
+    assert S["offsets"]["refit_at_bound"]["Elbow"]

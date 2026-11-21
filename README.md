@@ -347,6 +347,18 @@ episodes 46–55. Mean error 0.463 (defaults, mid-range offsets) → 0.439 (own 
 and two of them end on a range bound, so the zero convention is not shared between the two
 recordings, or the offsets are poorly constrained by these motions.
 
+Refitting the dynamics on the stacking data itself (`scripts/real2sim_identifiability.py` with
+`--fit runs/real2sim_transfer.json`, its episodes 0–9, 33 min on one core →
+`runs/real2sim_identifiability_stacking_full.json`) converges in 116 evaluations to kp 22.0,
+frictionloss 0.18, armature 0.057; held-out 0.342 → 0.319 deg. Within this dataset kp is again
+sharply identified (0.5× costs +0.232 deg), yet it sits 40 % below the pick-place value (36.6),
+outside that dataset's per-episode p10–p90 band (32.6–38.7) and below the DR floor (0.6 × 50).
+Passive damping is flat: 0.25×–4× moves the error by under 0.001 deg. The Elbow offset refits onto
+its range bound, and gravity sag trades kp against a zero offset, so the data cannot say whether
+the gap is a different arm, a different calibration, or offset error. Either way one dataset's
+kp is not the SO-100's kp: `real_centred()` (kp 0.65–0.77×) is built from pick-place only and
+does not cover this fit.
+
 Related: mujoco_menagerie issue #368 (opened 2026-11-17) fits STS3215 servo actuators for the
 SO-101 model against 12 real arms and 10 public LeRobot SO-101 datasets, with tip-space error.
 This section uses the SO-100 model and joint-space error, so the numbers are not comparable.
