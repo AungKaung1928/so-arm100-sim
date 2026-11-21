@@ -45,7 +45,7 @@ flowchart LR
 | scripted expert | success, `push` | 0.73 – 0.79 | every column, ± 0.05 – 0.07 seed spread |
 | `VecEnv`, 1 process | env-steps/s | 1,954 ± 49 | lift task, 15 s bursts, 3 sweeps |
 | `VecEnv`, 8 processes | env-steps/s | 7,302 ± 569 | 15 s bursts, 47% efficiency |
-| `VecEnv`, 8 processes | env-steps/s, sustained | 5,361 (5,257 – 5,465) | 12 x 15 s, about 28% below the burst figure |
+| `VecEnv`, 8 processes | env-steps/s, sustained | 5,361 (5,257 – 5,465) | 12 x 15 s, about 28% below its first window |
 | Docker image | tests inside | 59 passed, 4 skipped | 423 MB, built 2026-09-23 |
 
 ### Key points
