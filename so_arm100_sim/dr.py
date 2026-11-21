@@ -70,6 +70,16 @@ class DRConfig:
         interpolation, not transfer."""
         return cls(frictionloss=(0.5, 3.5))
 
+    @classmethod
+    def real_centred(cls):
+        """Default ranges, with kp and frictionloss narrowed onto the p10-p90
+        band of the same 20 per-episode real fits: kp 32.6-38.7 = x0.65-0.77
+        of 50, frictionloss 0.222-0.275 = x2.2-2.8 of 0.1. Nominal physics
+        (x1.0, x1.0) is OUTSIDE this config in both factors, so for a policy
+        trained on it the nominal cell is the transfer claim. The opposite
+        trade to `real_informed`, which widens to keep nominal inside."""
+        return cls(kp=(0.65, 0.77), frictionloss=(2.2, 2.8))
+
     def sample(self, rng):
         """One draw of concrete factors, as a plain dict `Physics.apply` takes."""
         return {

@@ -138,3 +138,24 @@ def test_real_informed_covers_refitted_real_servo():
     for k, v in EVAL_PHYSICS["real_fit"].items():
         lo, hi = getattr(cfg, k)
         assert lo <= v <= hi, k
+
+
+def test_real_centred_is_the_p10_p90_band_of_the_real_fits():
+    """DRConfig.real_centred() is the p10-p90 band of runs/real2sim_spread.json
+    as factors of the vendored value (to the 2 significant figures it is
+    written with), contains the median, and excludes nominal in both factors."""
+    import json
+    from pathlib import Path
+    spread = json.loads((Path(__file__).parents[1] / "runs/real2sim_spread.json").read_text())
+    m = scene.build_model(3)
+    nominal = {"kp": float(m.actuator_gainprm[0, 0]),
+               "frictionloss": float(m.dof_frictionloss[scene.arm_qvel_index(m)][0])}
+    cfg, default = DRConfig.real_centred(), DRConfig()
+    for k, tol in (("kp", 0.005), ("frictionloss", 0.05)):
+        lo, hi = getattr(cfg, k)
+        assert abs(lo - spread["p10"][k] / nominal[k]) < tol, k
+        assert abs(hi - spread["p90"][k] / nominal[k]) < tol, k
+        assert lo < spread["median"][k] / nominal[k] < hi, k
+        assert not lo <= 1.0 <= hi, k
+    others = [f for f in default.to_dict() if f not in ("kp", "frictionloss")]
+    assert all(getattr(cfg, f) == getattr(default, f) for f in others)
