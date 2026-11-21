@@ -157,7 +157,8 @@ def build_spec(n_cubes=3):
         b.add_freejoint(name=f"cube_{color}_free")
         b.add_geom(name=f"cube_{color}_geom", type=mujoco.mjtGeom.mjGEOM_BOX,
                    size=[CUBE_HALF] * 3, rgba=list(CUBE_RGBA[color]),
-                   mass=CUBE_MASS, friction=[1.0, 0.005, 0.0001])
+                   mass=CUBE_MASS, friction=[1.0, 0.005, 0.0001],
+                   priority=1)   # contacts use the cube's friction, not max(cube, other)
 
     # Target marker: a flat disc, visual only (no contype), on the table.
     t = w.add_site(name=TARGET_SITE, pos=[PARK_XY[0][0], PARK_XY[0][1] + 0.5, 0.0005],
