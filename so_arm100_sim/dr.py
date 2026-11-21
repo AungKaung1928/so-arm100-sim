@@ -85,10 +85,10 @@ class DRConfig:
         """Default ranges, with kp and frictionloss spanning the per-episode
         fits of BOTH real datasets: lower p10 to higher p90 of pick-place
         (runs/real2sim_spread.json) and stacking (runs/real2sim_spread_stacking.json).
-        kp 18.9-38.7 = x0.38-0.77 of 50, frictionloss 0.166-0.275 = x1.7-2.7
+        kp 18.9-38.7 = x0.38-0.77 of 50, frictionloss 0.166-0.275 = x1.7-2.8
         of 0.1. kp reaches below the default floor (0.6), so the `weak` cell
         (kp 0.45) is inside this config, not held out."""
-        return cls(kp=(0.38, 0.77), frictionloss=(1.7, 2.7))
+        return cls(kp=(0.38, 0.77), frictionloss=(1.7, 2.8))
 
     def sample(self, rng):
         """One draw of concrete factors, as a plain dict `Physics.apply` takes."""
