@@ -294,6 +294,31 @@ zero offsets are fitted, not known; the Elbow offset ends on its range bound. St
 at its evaluation cap (not converged), and passive damping came out 0.20, 0.018 and 0.11 in
 three runs: the data does not pin it down.
 
+What the data can identify (`scripts/real2sim_identifiability.py`, 55 min on one core →
+`runs/real2sim_identifiability.json`). Restarting Nelder-Mead from the fit converges in 537
+evaluations: train error 0.264 → 0.254 deg, held-out 0.294 → 0.291 deg. kp moves 38.8 → 36.6,
+frictionloss 0.25 → 0.23, armature 0.103 → 0.076, while dampratio drops 0.76 → 0.32 and passive
+damping rises 0.11 → 1.97: the two velocity terms trade against each other. Profile per parameter
+(hold it at 0.5× or 2× the optimum, refit the other four, train episodes 0–9), increase in train error:
+
+| parameter | 0.5× (deg) | 2× (deg) |
+|---|---|---|
+| kp | +0.127 | +0.050 |
+| frictionloss | +0.019 | +0.040 |
+| armature | +0.007 | +0.019 |
+| dampratio | +0.004 | +0.007 |
+| damping | +0.006 | +0.279 |
+
+For scale, fitting the dynamics bought 0.055 deg held-out (0.349 → 0.294). kp is identified
+(0.25× costs +0.720 deg). Frictionloss and armature are statistically resolved to within ±19 %
+(paired t over episodes), but a factor-2 error in either costs at most 0.040 deg. The data bounds
+total velocity damping from above (damping 4× costs +2.744 deg) and not from below, and does not
+separate actuator damping (dampratio) from passive joint damping. Refitting the zero offsets at
+the converged dynamics puts none on its bound (Elbow 37.73 deg, bound 36.52; held-out 0.288 deg).
+On the stacking dataset (slice around `runs/real2sim_transfer.json`, others fixed,
+`runs/real2sim_identifiability_stacking.json`) damping moves the error by under 0.006 deg over 0.5–2×.
+Not identifiable from this data at all: anything that needs a torque or current signal.
+
 Refitting kp, dampratio, armature and frictionloss on each of episodes 10–29 alone (offsets
 fixed; `scripts/real2sim_spread.py` → `runs/real2sim_spread.json`): kp median 35.7 (p10–p90
 32.6–38.7), frictionloss median 0.25 (0.22–0.28). kp sits inside the DR range

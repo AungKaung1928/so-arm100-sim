@@ -1,0 +1,1498 @@
+{
+ "data": [
+  "pickplace",
+  "d.parquet"
+ ],
+ "fit": "runs/real2sim_fit.json",
+ "train_episodes": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9
+ ],
+ "grid": [
+  0.125,
+  0.25,
+  0.5,
+  0.71,
+  0.84,
+  1.0,
+  1.19,
+  1.41,
+  2.0,
+  4.0,
+  8.0
+ ],
+ "convergence": {
+  "restarts": [
+   {
+    "nfev": 537,
+    "converged": true,
+    "train_err_deg": 0.2536
+   }
+  ],
+  "train_err_deg_fit": 0.2638,
+  "heldout_err_deg_fit": 0.294,
+  "heldout_err_deg_converged": 0.2906,
+  "fit": {
+   "kp": 38.7682,
+   "dampratio": 0.7589,
+   "armature": 0.1032,
+   "frictionloss": 0.2494,
+   "damping": 0.1063
+  },
+  "converged": {
+   "kp": 36.5706,
+   "dampratio": 0.3245,
+   "armature": 0.076,
+   "frictionloss": 0.2297,
+   "damping": 1.9718
+  }
+ },
+ "train_err_deg_at_optimum": 0.2536,
+ "params": {
+  "kp": {
+   "optimum": 36.5706,
+   "slice_interval_x": [
+    1.0,
+    1.0
+   ],
+   "slice": [
+    {
+     "m": 0.125,
+     "train_err_deg": 5.575,
+     "increase_deg": 5.3214,
+     "se_deg": 0.0715,
+     "distinguishable": true
+    },
+    {
+     "m": 0.25,
+     "train_err_deg": 2.6575,
+     "increase_deg": 2.4039,
+     "se_deg": 0.0306,
+     "distinguishable": true
+    },
+    {
+     "m": 0.5,
+     "train_err_deg": 0.9778,
+     "increase_deg": 0.7242,
+     "se_deg": 0.0151,
+     "distinguishable": true
+    },
+    {
+     "m": 0.71,
+     "train_err_deg": 0.4805,
+     "increase_deg": 0.2269,
+     "se_deg": 0.0056,
+     "distinguishable": true
+    },
+    {
+     "m": 0.84,
+     "train_err_deg": 0.3279,
+     "increase_deg": 0.0743,
+     "se_deg": 0.0023,
+     "distinguishable": true
+    },
+    {
+     "m": 1.0,
+     "train_err_deg": 0.2536,
+     "increase_deg": 0.0,
+     "se_deg": 0.0,
+     "distinguishable": false
+    },
+    {
+     "m": 1.19,
+     "train_err_deg": 0.3098,
+     "increase_deg": 0.0562,
+     "se_deg": 0.0034,
+     "distinguishable": true
+    },
+    {
+     "m": 1.41,
+     "train_err_deg": 0.402,
+     "increase_deg": 0.1484,
+     "se_deg": 0.0059,
+     "distinguishable": true
+    },
+    {
+     "m": 2.0,
+     "train_err_deg": 0.5869,
+     "increase_deg": 0.3333,
+     "se_deg": 0.0088,
+     "distinguishable": true
+    },
+    {
+     "m": 4.0,
+     "train_err_deg": 0.8462,
+     "increase_deg": 0.5926,
+     "se_deg": 0.013,
+     "distinguishable": true
+    },
+    {
+     "m": 8.0,
+     "train_err_deg": 0.985,
+     "increase_deg": 0.7314,
+     "se_deg": 0.0153,
+     "distinguishable": true
+    }
+   ],
+   "profile_interval_x": [
+    1.0,
+    1.0
+   ],
+   "profile": [
+    {
+     "m": 0.125,
+     "train_err_deg": 2.2793,
+     "increase_deg": 2.0257,
+     "se_deg": 0.0208,
+     "distinguishable": true,
+     "heldout_err_deg": 2.3101,
+     "refit": {
+      "kp": 4.5713,
+      "dampratio": 0.1272,
+      "armature": 0.0037,
+      "frictionloss": 0.0281,
+      "damping": 0.3067
+     }
+    },
+    {
+     "m": 0.25,
+     "train_err_deg": 0.9739,
+     "increase_deg": 0.7202,
+     "se_deg": 0.0118,
+     "distinguishable": true,
+     "heldout_err_deg": 0.9994,
+     "refit": {
+      "kp": 9.1426,
+      "dampratio": 0.4709,
+      "armature": 0.0303,
+      "frictionloss": 0.062,
+      "damping": 0.1462
+     }
+    },
+    {
+     "m": 0.5,
+     "train_err_deg": 0.381,
+     "increase_deg": 0.1274,
+     "se_deg": 0.006,
+     "distinguishable": true,
+     "heldout_err_deg": 0.416,
+     "refit": {
+      "kp": 18.2853,
+      "dampratio": 0.2674,
+      "armature": 0.0389,
+      "frictionloss": 0.1369,
+      "damping": 1.0151
+     }
+    },
+    {
+     "m": 0.71,
+     "train_err_deg": 0.2824,
+     "increase_deg": 0.0288,
+     "se_deg": 0.003,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3128,
+     "refit": {
+      "kp": 25.9651,
+      "dampratio": 0.2732,
+      "armature": 0.0495,
+      "frictionloss": 0.1796,
+      "damping": 1.5123
+     }
+    },
+    {
+     "m": 0.84,
+     "train_err_deg": 0.2601,
+     "increase_deg": 0.0065,
+     "se_deg": 0.0013,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2932,
+     "refit": {
+      "kp": 30.7193,
+      "dampratio": 0.2191,
+      "armature": 0.0653,
+      "frictionloss": 0.2063,
+      "damping": 1.9574
+     }
+    },
+    {
+     "m": 1.0,
+     "train_err_deg": 0.2536,
+     "increase_deg": 0.0,
+     "se_deg": 0.0,
+     "distinguishable": false,
+     "heldout_err_deg": 0.2906,
+     "refit": {
+      "kp": 36.5706,
+      "dampratio": 0.3245,
+      "armature": 0.076,
+      "frictionloss": 0.2297,
+      "damping": 1.9718
+     }
+    },
+    {
+     "m": 1.19,
+     "train_err_deg": 0.2584,
+     "increase_deg": 0.0048,
+     "se_deg": 0.001,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2943,
+     "refit": {
+      "kp": 43.519,
+      "dampratio": 0.4273,
+      "armature": 0.095,
+      "frictionloss": 0.2626,
+      "damping": 1.881
+     }
+    },
+    {
+     "m": 1.41,
+     "train_err_deg": 0.2705,
+     "increase_deg": 0.0169,
+     "se_deg": 0.0019,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3055,
+     "refit": {
+      "kp": 51.5645,
+      "dampratio": 0.5111,
+      "armature": 0.1178,
+      "frictionloss": 0.283,
+      "damping": 1.7861
+     }
+    },
+    {
+     "m": 2.0,
+     "train_err_deg": 0.3037,
+     "increase_deg": 0.05,
+     "se_deg": 0.0029,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3353,
+     "refit": {
+      "kp": 73.1411,
+      "dampratio": 0.6946,
+      "armature": 0.1751,
+      "frictionloss": 0.3491,
+      "damping": 1.2528
+     }
+    },
+    {
+     "m": 4.0,
+     "train_err_deg": 0.3604,
+     "increase_deg": 0.1068,
+     "se_deg": 0.0044,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3933,
+     "refit": {
+      "kp": 146.2823,
+      "dampratio": 0.8722,
+      "armature": 0.2837,
+      "frictionloss": 0.7461,
+      "damping": 0.9527
+     }
+    },
+    {
+     "m": 8.0,
+     "train_err_deg": 0.4064,
+     "increase_deg": 0.1528,
+     "se_deg": 0.0045,
+     "distinguishable": true,
+     "heldout_err_deg": 0.4437,
+     "refit": {
+      "kp": 292.5645,
+      "dampratio": 1.4018,
+      "armature": 0.2748,
+      "frictionloss": 0.832,
+      "damping": 0.0392
+     }
+    }
+   ]
+  },
+  "dampratio": {
+   "optimum": 0.3245,
+   "slice_interval_x": [
+    1.0,
+    1.0
+   ],
+   "slice": [
+    {
+     "m": 0.125,
+     "train_err_deg": 0.4332,
+     "increase_deg": 0.1796,
+     "se_deg": 0.0073,
+     "distinguishable": true
+    },
+    {
+     "m": 0.25,
+     "train_err_deg": 0.3957,
+     "increase_deg": 0.1421,
+     "se_deg": 0.0067,
+     "distinguishable": true
+    },
+    {
+     "m": 0.5,
+     "train_err_deg": 0.3292,
+     "increase_deg": 0.0756,
+     "se_deg": 0.0049,
+     "distinguishable": true
+    },
+    {
+     "m": 0.71,
+     "train_err_deg": 0.284,
+     "increase_deg": 0.0304,
+     "se_deg": 0.0027,
+     "distinguishable": true
+    },
+    {
+     "m": 0.84,
+     "train_err_deg": 0.2638,
+     "increase_deg": 0.0101,
+     "se_deg": 0.0014,
+     "distinguishable": true
+    },
+    {
+     "m": 1.0,
+     "train_err_deg": 0.2536,
+     "increase_deg": 0.0,
+     "se_deg": 0.0,
+     "distinguishable": false
+    },
+    {
+     "m": 1.19,
+     "train_err_deg": 0.2681,
+     "increase_deg": 0.0145,
+     "se_deg": 0.0011,
+     "distinguishable": true
+    },
+    {
+     "m": 1.41,
+     "train_err_deg": 0.3087,
+     "increase_deg": 0.0551,
+     "se_deg": 0.0018,
+     "distinguishable": true
+    },
+    {
+     "m": 2.0,
+     "train_err_deg": 0.4485,
+     "increase_deg": 0.1949,
+     "se_deg": 0.0059,
+     "distinguishable": true
+    },
+    {
+     "m": 4.0,
+     "train_err_deg": 1.0067,
+     "increase_deg": 0.753,
+     "se_deg": 0.0217,
+     "distinguishable": true
+    },
+    {
+     "m": 8.0,
+     "train_err_deg": 2.1199,
+     "increase_deg": 1.8663,
+     "se_deg": 0.049,
+     "distinguishable": true
+    }
+   ],
+   "profile_interval_x": [
+    0.71,
+    1.0
+   ],
+   "profile": [
+    {
+     "m": 0.125,
+     "train_err_deg": 0.2657,
+     "increase_deg": 0.0121,
+     "se_deg": 0.0035,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3294,
+     "refit": {
+      "kp": 30.3333,
+      "dampratio": 0.0406,
+      "armature": 0.0555,
+      "frictionloss": 0.2075,
+      "damping": 2.4094
+     }
+    },
+    {
+     "m": 0.25,
+     "train_err_deg": 0.2628,
+     "increase_deg": 0.0092,
+     "se_deg": 0.0029,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3215,
+     "refit": {
+      "kp": 30.943,
+      "dampratio": 0.0811,
+      "armature": 0.0616,
+      "frictionloss": 0.2117,
+      "damping": 2.3484
+     }
+    },
+    {
+     "m": 0.5,
+     "train_err_deg": 0.2578,
+     "increase_deg": 0.0042,
+     "se_deg": 0.002,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3114,
+     "refit": {
+      "kp": 33.096,
+      "dampratio": 0.1622,
+      "armature": 0.0658,
+      "frictionloss": 0.2193,
+      "damping": 2.2721
+     }
+    },
+    {
+     "m": 0.71,
+     "train_err_deg": 0.2551,
+     "increase_deg": 0.0015,
+     "se_deg": 0.0011,
+     "distinguishable": false,
+     "heldout_err_deg": 0.3012,
+     "refit": {
+      "kp": 34.496,
+      "dampratio": 0.2304,
+      "armature": 0.0692,
+      "frictionloss": 0.2242,
+      "damping": 2.1591
+     }
+    },
+    {
+     "m": 0.84,
+     "train_err_deg": 0.2541,
+     "increase_deg": 0.0005,
+     "se_deg": 0.0005,
+     "distinguishable": false,
+     "heldout_err_deg": 0.2953,
+     "refit": {
+      "kp": 35.3421,
+      "dampratio": 0.2725,
+      "armature": 0.073,
+      "frictionloss": 0.2259,
+      "damping": 2.0717
+     }
+    },
+    {
+     "m": 1.0,
+     "train_err_deg": 0.2536,
+     "increase_deg": 0.0,
+     "se_deg": 0.0,
+     "distinguishable": false,
+     "heldout_err_deg": 0.2906,
+     "refit": {
+      "kp": 36.5706,
+      "dampratio": 0.3245,
+      "armature": 0.076,
+      "frictionloss": 0.2297,
+      "damping": 1.9718
+     }
+    },
+    {
+     "m": 1.19,
+     "train_err_deg": 0.2542,
+     "increase_deg": 0.0006,
+     "se_deg": 0.0003,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2876,
+     "refit": {
+      "kp": 38.1176,
+      "dampratio": 0.3861,
+      "armature": 0.0785,
+      "frictionloss": 0.2345,
+      "damping": 1.8519
+     }
+    },
+    {
+     "m": 1.41,
+     "train_err_deg": 0.2561,
+     "increase_deg": 0.0025,
+     "se_deg": 0.0005,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2862,
+     "refit": {
+      "kp": 38.8232,
+      "dampratio": 0.4575,
+      "armature": 0.081,
+      "frictionloss": 0.2356,
+      "damping": 1.6234
+     }
+    },
+    {
+     "m": 2.0,
+     "train_err_deg": 0.2606,
+     "increase_deg": 0.007,
+     "se_deg": 0.0004,
+     "distinguishable": true,
+     "heldout_err_deg": 0.291,
+     "refit": {
+      "kp": 38.1901,
+      "dampratio": 0.6489,
+      "armature": 0.0864,
+      "frictionloss": 0.2379,
+      "damping": 0.7696
+     }
+    },
+    {
+     "m": 4.0,
+     "train_err_deg": 0.313,
+     "increase_deg": 0.0594,
+     "se_deg": 0.0023,
+     "distinguishable": true,
+     "heldout_err_deg": 0.344,
+     "refit": {
+      "kp": 43.4943,
+      "dampratio": 1.2979,
+      "armature": 0.0384,
+      "frictionloss": 0.2233,
+      "damping": 0.0138
+     }
+    },
+    {
+     "m": 8.0,
+     "train_err_deg": 0.4286,
+     "increase_deg": 0.1749,
+     "se_deg": 0.0063,
+     "distinguishable": true,
+     "heldout_err_deg": 0.4757,
+     "refit": {
+      "kp": 425.527,
+      "dampratio": 2.5957,
+      "armature": 0.088,
+      "frictionloss": 2.5427,
+      "damping": 0.0308
+     }
+    }
+   ]
+  },
+  "armature": {
+   "optimum": 0.076,
+   "slice_interval_x": [
+    1.0,
+    1.0
+   ],
+   "slice": [
+    {
+     "m": 0.125,
+     "train_err_deg": 0.3425,
+     "increase_deg": 0.0889,
+     "se_deg": 0.0052,
+     "distinguishable": true
+    },
+    {
+     "m": 0.25,
+     "train_err_deg": 0.3154,
+     "increase_deg": 0.0618,
+     "se_deg": 0.0042,
+     "distinguishable": true
+    },
+    {
+     "m": 0.5,
+     "train_err_deg": 0.2803,
+     "increase_deg": 0.0266,
+     "se_deg": 0.0023,
+     "distinguishable": true
+    },
+    {
+     "m": 0.71,
+     "train_err_deg": 0.2625,
+     "increase_deg": 0.0089,
+     "se_deg": 0.0012,
+     "distinguishable": true
+    },
+    {
+     "m": 0.84,
+     "train_err_deg": 0.2563,
+     "increase_deg": 0.0027,
+     "se_deg": 0.0006,
+     "distinguishable": true
+    },
+    {
+     "m": 1.0,
+     "train_err_deg": 0.2536,
+     "increase_deg": 0.0,
+     "se_deg": 0.0,
+     "distinguishable": false
+    },
+    {
+     "m": 1.19,
+     "train_err_deg": 0.2572,
+     "increase_deg": 0.0036,
+     "se_deg": 0.0005,
+     "distinguishable": true
+    },
+    {
+     "m": 1.41,
+     "train_err_deg": 0.2684,
+     "increase_deg": 0.0148,
+     "se_deg": 0.0009,
+     "distinguishable": true
+    },
+    {
+     "m": 2.0,
+     "train_err_deg": 0.3139,
+     "increase_deg": 0.0603,
+     "se_deg": 0.002,
+     "distinguishable": true
+    },
+    {
+     "m": 4.0,
+     "train_err_deg": 0.4998,
+     "increase_deg": 0.2462,
+     "se_deg": 0.0085,
+     "distinguishable": true
+    },
+    {
+     "m": 8.0,
+     "train_err_deg": 0.8513,
+     "increase_deg": 0.5976,
+     "se_deg": 0.0256,
+     "distinguishable": true
+    }
+   ],
+   "profile_interval_x": [
+    1.0,
+    1.0
+   ],
+   "profile": [
+    {
+     "m": 0.125,
+     "train_err_deg": 0.2828,
+     "increase_deg": 0.0292,
+     "se_deg": 0.0031,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3494,
+     "refit": {
+      "kp": 31.7302,
+      "dampratio": 0.2078,
+      "armature": 0.0095,
+      "frictionloss": 0.199,
+      "damping": 2.3383
+     }
+    },
+    {
+     "m": 0.25,
+     "train_err_deg": 0.2727,
+     "increase_deg": 0.0191,
+     "se_deg": 0.0025,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3353,
+     "refit": {
+      "kp": 33.2117,
+      "dampratio": 0.252,
+      "armature": 0.019,
+      "frictionloss": 0.2067,
+      "damping": 2.3017
+     }
+    },
+    {
+     "m": 0.5,
+     "train_err_deg": 0.2609,
+     "increase_deg": 0.0072,
+     "se_deg": 0.0009,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3089,
+     "refit": {
+      "kp": 33.8131,
+      "dampratio": 0.2863,
+      "armature": 0.038,
+      "frictionloss": 0.2129,
+      "damping": 2.1421
+     }
+    },
+    {
+     "m": 0.71,
+     "train_err_deg": 0.2559,
+     "increase_deg": 0.0023,
+     "se_deg": 0.0005,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2988,
+     "refit": {
+      "kp": 34.8975,
+      "dampratio": 0.2993,
+      "armature": 0.054,
+      "frictionloss": 0.2184,
+      "damping": 2.0806
+     }
+    },
+    {
+     "m": 0.84,
+     "train_err_deg": 0.2543,
+     "increase_deg": 0.0007,
+     "se_deg": 0.0002,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2931,
+     "refit": {
+      "kp": 35.484,
+      "dampratio": 0.3118,
+      "armature": 0.0639,
+      "frictionloss": 0.2246,
+      "damping": 2.0151
+     }
+    },
+    {
+     "m": 1.0,
+     "train_err_deg": 0.2536,
+     "increase_deg": 0.0,
+     "se_deg": 0.0,
+     "distinguishable": false,
+     "heldout_err_deg": 0.2906,
+     "refit": {
+      "kp": 36.5706,
+      "dampratio": 0.3245,
+      "armature": 0.076,
+      "frictionloss": 0.2297,
+      "damping": 1.9718
+     }
+    },
+    {
+     "m": 1.19,
+     "train_err_deg": 0.2546,
+     "increase_deg": 0.0009,
+     "se_deg": 0.0003,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2892,
+     "refit": {
+      "kp": 38.2112,
+      "dampratio": 0.3518,
+      "armature": 0.0905,
+      "frictionloss": 0.2404,
+      "damping": 1.8926
+     }
+    },
+    {
+     "m": 1.41,
+     "train_err_deg": 0.2577,
+     "increase_deg": 0.0041,
+     "se_deg": 0.0005,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2927,
+     "refit": {
+      "kp": 39.7765,
+      "dampratio": 0.3549,
+      "armature": 0.1072,
+      "frictionloss": 0.2502,
+      "damping": 1.8696
+     }
+    },
+    {
+     "m": 2.0,
+     "train_err_deg": 0.2725,
+     "increase_deg": 0.0189,
+     "se_deg": 0.0016,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3052,
+     "refit": {
+      "kp": 46.7976,
+      "dampratio": 0.4602,
+      "armature": 0.152,
+      "frictionloss": 0.2824,
+      "damping": 1.5128
+     }
+    },
+    {
+     "m": 4.0,
+     "train_err_deg": 0.3257,
+     "increase_deg": 0.072,
+     "se_deg": 0.0032,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3592,
+     "refit": {
+      "kp": 77.9274,
+      "dampratio": 0.6725,
+      "armature": 0.3041,
+      "frictionloss": 0.4033,
+      "damping": 0.2541
+     }
+    },
+    {
+     "m": 8.0,
+     "train_err_deg": 0.4038,
+     "increase_deg": 0.1502,
+     "se_deg": 0.0058,
+     "distinguishable": true,
+     "heldout_err_deg": 0.4613,
+     "refit": {
+      "kp": 150.441,
+      "dampratio": 0.6765,
+      "armature": 0.6082,
+      "frictionloss": 0.6156,
+      "damping": 0.3972
+     }
+    }
+   ]
+  },
+  "frictionloss": {
+   "optimum": 0.2297,
+   "slice_interval_x": [
+    1.0,
+    1.0
+   ],
+   "slice": [
+    {
+     "m": 0.125,
+     "train_err_deg": 0.3465,
+     "increase_deg": 0.0929,
+     "se_deg": 0.0034,
+     "distinguishable": true
+    },
+    {
+     "m": 0.25,
+     "train_err_deg": 0.325,
+     "increase_deg": 0.0714,
+     "se_deg": 0.0032,
+     "distinguishable": true
+    },
+    {
+     "m": 0.5,
+     "train_err_deg": 0.288,
+     "increase_deg": 0.0344,
+     "se_deg": 0.0023,
+     "distinguishable": true
+    },
+    {
+     "m": 0.71,
+     "train_err_deg": 0.2661,
+     "increase_deg": 0.0125,
+     "se_deg": 0.0015,
+     "distinguishable": true
+    },
+    {
+     "m": 0.84,
+     "train_err_deg": 0.2576,
+     "increase_deg": 0.0039,
+     "se_deg": 0.0009,
+     "distinguishable": true
+    },
+    {
+     "m": 1.0,
+     "train_err_deg": 0.2536,
+     "increase_deg": 0.0,
+     "se_deg": 0.0,
+     "distinguishable": false
+    },
+    {
+     "m": 1.19,
+     "train_err_deg": 0.2591,
+     "increase_deg": 0.0054,
+     "se_deg": 0.0009,
+     "distinguishable": true
+    },
+    {
+     "m": 1.41,
+     "train_err_deg": 0.2785,
+     "increase_deg": 0.0248,
+     "se_deg": 0.0018,
+     "distinguishable": true
+    },
+    {
+     "m": 2.0,
+     "train_err_deg": 0.3743,
+     "increase_deg": 0.1207,
+     "se_deg": 0.0042,
+     "distinguishable": true
+    },
+    {
+     "m": 4.0,
+     "train_err_deg": 0.7849,
+     "increase_deg": 0.5313,
+     "se_deg": 0.0114,
+     "distinguishable": true
+    },
+    {
+     "m": 8.0,
+     "train_err_deg": 2.075,
+     "increase_deg": 1.8214,
+     "se_deg": 0.111,
+     "distinguishable": true
+    }
+   ],
+   "profile_interval_x": [
+    1.0,
+    1.0
+   ],
+   "profile": [
+    {
+     "m": 0.125,
+     "train_err_deg": 0.3085,
+     "increase_deg": 0.0548,
+     "se_deg": 0.0025,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3633,
+     "refit": {
+      "kp": 36.7096,
+      "dampratio": 0.4129,
+      "armature": 0.076,
+      "frictionloss": 0.0287,
+      "damping": 2.0478
+     }
+    },
+    {
+     "m": 0.25,
+     "train_err_deg": 0.295,
+     "increase_deg": 0.0414,
+     "se_deg": 0.0024,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3468,
+     "refit": {
+      "kp": 34.8872,
+      "dampratio": 0.3666,
+      "armature": 0.0701,
+      "frictionloss": 0.0574,
+      "damping": 2.0721
+     }
+    },
+    {
+     "m": 0.5,
+     "train_err_deg": 0.2724,
+     "increase_deg": 0.0187,
+     "se_deg": 0.0017,
+     "distinguishable": true,
+     "heldout_err_deg": 0.319,
+     "refit": {
+      "kp": 34.0529,
+      "dampratio": 0.3289,
+      "armature": 0.0661,
+      "frictionloss": 0.1149,
+      "damping": 2.0534
+     }
+    },
+    {
+     "m": 0.71,
+     "train_err_deg": 0.2598,
+     "increase_deg": 0.0061,
+     "se_deg": 0.0011,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3001,
+     "refit": {
+      "kp": 34.236,
+      "dampratio": 0.322,
+      "armature": 0.068,
+      "frictionloss": 0.1631,
+      "damping": 1.9914
+     }
+    },
+    {
+     "m": 0.84,
+     "train_err_deg": 0.2554,
+     "increase_deg": 0.0018,
+     "se_deg": 0.0006,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2954,
+     "refit": {
+      "kp": 35.1677,
+      "dampratio": 0.3124,
+      "armature": 0.0704,
+      "frictionloss": 0.193,
+      "damping": 2.0149
+     }
+    },
+    {
+     "m": 1.0,
+     "train_err_deg": 0.2536,
+     "increase_deg": 0.0,
+     "se_deg": 0.0,
+     "distinguishable": false,
+     "heldout_err_deg": 0.2906,
+     "refit": {
+      "kp": 36.5706,
+      "dampratio": 0.3245,
+      "armature": 0.076,
+      "frictionloss": 0.2297,
+      "damping": 1.9718
+     }
+    },
+    {
+     "m": 1.19,
+     "train_err_deg": 0.2556,
+     "increase_deg": 0.002,
+     "se_deg": 0.0006,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2908,
+     "refit": {
+      "kp": 38.713,
+      "dampratio": 0.3461,
+      "armature": 0.082,
+      "frictionloss": 0.2734,
+      "damping": 1.9315
+     }
+    },
+    {
+     "m": 1.41,
+     "train_err_deg": 0.2629,
+     "increase_deg": 0.0093,
+     "se_deg": 0.0012,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2958,
+     "refit": {
+      "kp": 41.2367,
+      "dampratio": 0.3634,
+      "armature": 0.0935,
+      "frictionloss": 0.3239,
+      "damping": 1.8745
+     }
+    },
+    {
+     "m": 2.0,
+     "train_err_deg": 0.2931,
+     "increase_deg": 0.0395,
+     "se_deg": 0.0024,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3193,
+     "refit": {
+      "kp": 52.452,
+      "dampratio": 0.4512,
+      "armature": 0.1291,
+      "frictionloss": 0.4595,
+      "damping": 1.7254
+     }
+    },
+    {
+     "m": 4.0,
+     "train_err_deg": 0.3903,
+     "increase_deg": 0.1367,
+     "se_deg": 0.0055,
+     "distinguishable": true,
+     "heldout_err_deg": 0.4371,
+     "refit": {
+      "kp": 74.9998,
+      "dampratio": 0.9786,
+      "armature": 0.0311,
+      "frictionloss": 0.9189,
+      "damping": 1.748
+     }
+    },
+    {
+     "m": 8.0,
+     "train_err_deg": 0.4262,
+     "increase_deg": 0.1726,
+     "se_deg": 0.0051,
+     "distinguishable": true,
+     "heldout_err_deg": 0.4577,
+     "refit": {
+      "kp": 187.2876,
+      "dampratio": 1.8329,
+      "armature": 0.0658,
+      "frictionloss": 1.8378,
+      "damping": 0.1539
+     }
+    }
+   ]
+  },
+  "damping": {
+   "optimum": 1.9718,
+   "slice_interval_x": [
+    1.0,
+    1.0
+   ],
+   "slice": [
+    {
+     "m": 0.125,
+     "train_err_deg": 0.6382,
+     "increase_deg": 0.3846,
+     "se_deg": 0.012,
+     "distinguishable": true
+    },
+    {
+     "m": 0.25,
+     "train_err_deg": 0.5654,
+     "increase_deg": 0.3118,
+     "se_deg": 0.0104,
+     "distinguishable": true
+    },
+    {
+     "m": 0.5,
+     "train_err_deg": 0.427,
+     "increase_deg": 0.1734,
+     "se_deg": 0.0079,
+     "distinguishable": true
+    },
+    {
+     "m": 0.71,
+     "train_err_deg": 0.3301,
+     "increase_deg": 0.0765,
+     "se_deg": 0.0053,
+     "distinguishable": true
+    },
+    {
+     "m": 0.84,
+     "train_err_deg": 0.2827,
+     "increase_deg": 0.0291,
+     "se_deg": 0.0027,
+     "distinguishable": true
+    },
+    {
+     "m": 1.0,
+     "train_err_deg": 0.2536,
+     "increase_deg": 0.0,
+     "se_deg": 0.0,
+     "distinguishable": false
+    },
+    {
+     "m": 1.19,
+     "train_err_deg": 0.2986,
+     "increase_deg": 0.045,
+     "se_deg": 0.0035,
+     "distinguishable": true
+    },
+    {
+     "m": 1.41,
+     "train_err_deg": 0.4085,
+     "increase_deg": 0.1549,
+     "se_deg": 0.0136,
+     "distinguishable": true
+    },
+    {
+     "m": 2.0,
+     "train_err_deg": 0.9268,
+     "increase_deg": 0.6732,
+     "se_deg": 0.0613,
+     "distinguishable": true
+    },
+    {
+     "m": 4.0,
+     "train_err_deg": 4.2819,
+     "increase_deg": 4.0283,
+     "se_deg": 0.2685,
+     "distinguishable": true
+    },
+    {
+     "m": 8.0,
+     "train_err_deg": 8.4413,
+     "increase_deg": 8.1877,
+     "se_deg": 0.2674,
+     "distinguishable": true
+    }
+   ],
+   "profile_interval_x": [
+    1.0,
+    1.19
+   ],
+   "profile": [
+    {
+     "m": 0.125,
+     "train_err_deg": 0.2666,
+     "increase_deg": 0.0129,
+     "se_deg": 0.0009,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3003,
+     "refit": {
+      "kp": 37.4485,
+      "dampratio": 0.6994,
+      "armature": 0.1038,
+      "frictionloss": 0.2203,
+      "damping": 0.2465
+     }
+    },
+    {
+     "m": 0.25,
+     "train_err_deg": 0.2617,
+     "increase_deg": 0.0081,
+     "se_deg": 0.0003,
+     "distinguishable": true,
+     "heldout_err_deg": 0.292,
+     "refit": {
+      "kp": 37.9425,
+      "dampratio": 0.6897,
+      "armature": 0.092,
+      "frictionloss": 0.2452,
+      "damping": 0.493
+     }
+    },
+    {
+     "m": 0.5,
+     "train_err_deg": 0.2593,
+     "increase_deg": 0.0056,
+     "se_deg": 0.0003,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2899,
+     "refit": {
+      "kp": 37.6738,
+      "dampratio": 0.5762,
+      "armature": 0.0882,
+      "frictionloss": 0.2412,
+      "damping": 0.9859
+     }
+    },
+    {
+     "m": 0.71,
+     "train_err_deg": 0.2571,
+     "increase_deg": 0.0035,
+     "se_deg": 0.0003,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2873,
+     "refit": {
+      "kp": 37.4608,
+      "dampratio": 0.4787,
+      "armature": 0.0847,
+      "frictionloss": 0.2354,
+      "damping": 1.4
+     }
+    },
+    {
+     "m": 0.84,
+     "train_err_deg": 0.2553,
+     "increase_deg": 0.0017,
+     "se_deg": 0.0004,
+     "distinguishable": true,
+     "heldout_err_deg": 0.2851,
+     "refit": {
+      "kp": 37.0949,
+      "dampratio": 0.4105,
+      "armature": 0.0818,
+      "frictionloss": 0.2328,
+      "damping": 1.6563
+     }
+    },
+    {
+     "m": 1.0,
+     "train_err_deg": 0.2536,
+     "increase_deg": 0.0,
+     "se_deg": 0.0,
+     "distinguishable": false,
+     "heldout_err_deg": 0.2906,
+     "refit": {
+      "kp": 36.5706,
+      "dampratio": 0.3245,
+      "armature": 0.076,
+      "frictionloss": 0.2297,
+      "damping": 1.9718
+     }
+    },
+    {
+     "m": 1.19,
+     "train_err_deg": 0.2581,
+     "increase_deg": 0.0044,
+     "se_deg": 0.003,
+     "distinguishable": false,
+     "heldout_err_deg": 0.3205,
+     "refit": {
+      "kp": 36.3964,
+      "dampratio": 0.2337,
+      "armature": 0.0655,
+      "frictionloss": 0.22,
+      "damping": 2.3465
+     }
+    },
+    {
+     "m": 1.41,
+     "train_err_deg": 0.2817,
+     "increase_deg": 0.0281,
+     "se_deg": 0.0108,
+     "distinguishable": true,
+     "heldout_err_deg": 0.3788,
+     "refit": {
+      "kp": 34.786,
+      "dampratio": 0.0638,
+      "armature": 0.056,
+      "frictionloss": 0.1993,
+      "damping": 2.7803
+     }
+    },
+    {
+     "m": 2.0,
+     "train_err_deg": 0.5324,
+     "increase_deg": 0.2788,
+     "se_deg": 0.0395,
+     "distinguishable": true,
+     "heldout_err_deg": 0.6665,
+     "refit": {
+      "kp": 43.4086,
+      "dampratio": 0.0727,
+      "armature": 0.0274,
+      "frictionloss": 0.013,
+      "damping": 3.9436
+     }
+    },
+    {
+     "m": 4.0,
+     "train_err_deg": 2.9978,
+     "increase_deg": 2.7442,
+     "se_deg": 0.2537,
+     "distinguishable": true,
+     "heldout_err_deg": 2.6981,
+     "refit": {
+      "kp": 35821470.7237,
+      "dampratio": 0.0001,
+      "armature": 0.0015,
+      "frictionloss": 0.0,
+      "damping": 7.8873
+     }
+    },
+    {
+     "m": 8.0,
+     "train_err_deg": 7.3898,
+     "increase_deg": 7.1362,
+     "se_deg": 0.2546,
+     "distinguishable": true,
+     "heldout_err_deg": 7.3632,
+     "refit": {
+      "kp": 1.1118740724836379e+62,
+      "dampratio": 0.0,
+      "armature": 0.0,
+      "frictionloss": 0.0,
+      "damping": 15.7745
+     }
+    }
+   ]
+  }
+ },
+ "offsets": {
+  "allowed_deg": {
+   "Pitch": [
+    -100.4,
+    -31.95
+   ],
+   "Elbow": [
+    36.52,
+    104.85
+   ],
+   "Wrist_Pitch": [
+    -105.04,
+    -0.6
+   ]
+  },
+  "fit_deg": {
+   "Pitch": -39.89,
+   "Elbow": 36.52,
+   "Wrist_Pitch": -54.88
+  },
+  "refit_deg": {
+   "Pitch": -53.34,
+   "Elbow": 37.73,
+   "Wrist_Pitch": -41.78
+  },
+  "refit_at_bound": {
+   "Pitch": false,
+   "Elbow": false,
+   "Wrist_Pitch": false
+  },
+  "refit_nfev": 64,
+  "refit_converged": true,
+  "train_err_deg_refit": 0.243,
+  "heldout_err_deg_refit": 0.2878,
+  "slice": {
+   "Pitch": [
+    {
+     "offset_deg": -100.4,
+     "train_err_deg": 0.44
+    },
+    {
+     "offset_deg": -91.84,
+     "train_err_deg": 0.3899
+    },
+    {
+     "offset_deg": -83.29,
+     "train_err_deg": 0.3424
+    },
+    {
+     "offset_deg": -74.73,
+     "train_err_deg": 0.2997
+    },
+    {
+     "offset_deg": -66.18,
+     "train_err_deg": 0.266
+    },
+    {
+     "offset_deg": -57.62,
+     "train_err_deg": 0.2474
+    },
+    {
+     "offset_deg": -49.07,
+     "train_err_deg": 0.2443
+    },
+    {
+     "offset_deg": -40.51,
+     "train_err_deg": 0.2526
+    },
+    {
+     "offset_deg": -31.95,
+     "train_err_deg": 0.2683
+    }
+   ],
+   "Elbow": [
+    {
+     "offset_deg": 36.52,
+     "train_err_deg": 0.2536
+    },
+    {
+     "offset_deg": 45.07,
+     "train_err_deg": 0.2572
+    },
+    {
+     "offset_deg": 53.61,
+     "train_err_deg": 0.2606
+    },
+    {
+     "offset_deg": 62.15,
+     "train_err_deg": 0.2642
+    },
+    {
+     "offset_deg": 70.69,
+     "train_err_deg": 0.2682
+    },
+    {
+     "offset_deg": 79.23,
+     "train_err_deg": 0.2744
+    },
+    {
+     "offset_deg": 87.77,
+     "train_err_deg": 0.2835
+    },
+    {
+     "offset_deg": 96.31,
+     "train_err_deg": 0.2977
+    },
+    {
+     "offset_deg": 104.85,
+     "train_err_deg": 0.3186
+    }
+   ],
+   "Wrist_Pitch": [
+    {
+     "offset_deg": -105.04,
+     "train_err_deg": 0.2587
+    },
+    {
+     "offset_deg": -91.99,
+     "train_err_deg": 0.2553
+    },
+    {
+     "offset_deg": -78.93,
+     "train_err_deg": 0.2539
+    },
+    {
+     "offset_deg": -65.88,
+     "train_err_deg": 0.2536
+    },
+    {
+     "offset_deg": -52.82,
+     "train_err_deg": 0.2536
+    },
+    {
+     "offset_deg": -39.77,
+     "train_err_deg": 0.2539
+    },
+    {
+     "offset_deg": -26.71,
+     "train_err_deg": 0.2548
+    },
+    {
+     "offset_deg": -13.66,
+     "train_err_deg": 0.2572
+    },
+    {
+     "offset_deg": -0.6,
+     "train_err_deg": 0.262
+    }
+   ]
+  }
+ },
+ "seconds": 3270.7
+}
