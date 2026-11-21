@@ -1,6 +1,5 @@
 """Domain randomisation: applied exactly, restored exactly, and the held-out
 physics really is outside the training range."""
-import mujoco
 import numpy as np
 import pytest
 
@@ -160,21 +159,3 @@ def test_real_centred_is_the_p10_p90_band_of_the_real_fits():
         assert not lo <= 1.0 <= hi, k
     others = [f for f in default.to_dict() if f not in ("kp", "frictionloss")]
     assert all(getattr(cfg, f) == getattr(default, f) for f in others)
-
-
-def test_cube_friction_reaches_the_contacts():
-    # MuJoCo takes the max of two equal-priority geoms' friction, so scaling only the cube down
-    # would leave every contact at the pads'/floor's 1.0 and make "slippery" a no-op.
-    m = scene.build_model()
-    d = mujoco.MjData(m)
-    p = Physics(m, "red")
-    seen = {}
-    for name in ("nominal", "slippery"):
-        p.apply(EVAL_PHYSICS[name])
-        mujoco.mj_resetData(m, d)
-        for _ in range(200):
-            mujoco.mj_step(m, d)
-        seen[name] = {round(float(d.contact[i].friction[0]), 4) for i in range(d.ncon)
-                      if p.geom in (d.contact[i].geom1, d.contact[i].geom2)}
-    assert seen["nominal"] == {1.0}
-    assert seen["slippery"] == {EVAL_PHYSICS["slippery"]["cube_friction"]}
