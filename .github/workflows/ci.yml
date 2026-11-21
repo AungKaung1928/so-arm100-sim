@@ -22,6 +22,6 @@ jobs:
       - name: system GL for offscreen rendering
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libegl1 libgl1 libosmesa6
       - name: install
-        run: pip install -e ".[dev,gym,image]"
+        run: pip install -e ".[dev,gym,image,real2sim]"
       - name: tests
         run: python -m pytest tests
