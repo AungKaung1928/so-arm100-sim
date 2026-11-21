@@ -333,6 +333,13 @@ covers every per-episode fit (kp 0.64–0.89 ×, frictionloss 2.1–3.0 ×; `tes
 this against `runs/real2sim_spread.json`). For a policy trained with it, `real_fit` is in range:
 an interpolation cell, not a transfer cell. No policy has been trained with it yet.
 
+`DRConfig.real_centred()` makes the opposite trade: kp and frictionloss narrowed onto the p10–p90
+band of the same fits (kp 0.65–0.77 ×, frictionloss 2.2–2.8 ×; `tests/test_dr.py` derives the band
+from `runs/real2sim_spread.json`), so `nominal` is outside it. The paired A/B in
+[so-arm100-rl](https://github.com/AungKaung1928/so-arm100-rl) (3 training seeds, numbers and test
+there) finds no measurable difference against the default DR on `nominal` or `real_fit`, and a lead
+on `laggy` only.
+
 Transfer to a second real dataset, `lerobot/svla_so100_stacking` (`--dynamics-from`, `runs/real2sim_transfer.json`):
 offsets refit on its episodes 0–9, dynamics taken unchanged from the pick-place fit, scored on
 episodes 46–55. Mean error 0.463 (defaults, mid-range offsets) → 0.439 (own offsets) → 0.342 deg
