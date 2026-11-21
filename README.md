@@ -353,7 +353,10 @@ Refitting the dynamics on the stacking data itself (`scripts/real2sim_identifiab
 frictionloss 0.18, armature 0.057; held-out 0.342 → 0.319 deg. Within this dataset kp is again
 sharply identified (0.5× costs +0.232 deg), yet it sits 40 % below the pick-place value (36.6),
 outside that dataset's per-episode p10–p90 band (32.6–38.7) and below the DR floor (0.6 × 50).
-Passive damping is flat: 0.25×–4× moves the error by under 0.001 deg. The Elbow offset refits onto
+Per-episode refits on stacking episodes 10–29 (`scripts/real2sim_spread.py`, same start as
+pick-place → `runs/real2sim_spread_stacking.json`) put kp at median 21.5, p10–p90 18.9–25.0, no
+overlap with pick-place, so the gap is in the data, not one soft fit; frictionloss overlaps
+(0.17–0.25). Passive damping is flat: 0.25×–4× moves the error by under 0.001 deg. The Elbow offset refits onto
 its range bound, and gravity sag trades kp against a zero offset, so the data cannot say whether
 the gap is a different arm, a different calibration, or offset error. Either way one dataset's
 kp is not the SO-100's kp: `real_centred()` (kp 0.65–0.77×) is built from pick-place only and

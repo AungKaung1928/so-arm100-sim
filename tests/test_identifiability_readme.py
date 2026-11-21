@@ -65,3 +65,12 @@ def test_stacking_full_paragraph_matches_json():
     assert f"p10–p90 band ({lo:.1f}–{hi:.1f})" in README and v["kp"] < lo and v["kp"] < 0.6 * 50
     assert max(abs(_inc(p, "damping", m)) for m in (0.25, 0.5, 0.71, 0.84, 1.19, 1.41, 2.0, 4.0)) < 0.001
     assert S["offsets"]["refit_at_bound"]["Elbow"]
+
+
+def test_stacking_spread_sentence_matches_json():
+    S2 = json.loads((ROOT / "runs/real2sim_spread_stacking.json").read_text())
+    med, lo, hi = S2["median"], S2["p10"], S2["p90"]
+    assert f"kp at median {med['kp']:.1f}, p10–p90 {lo['kp']:.1f}–{hi['kp']:.1f}, no overlap" in README
+    assert hi["kp"] < SPREAD["p10"]["kp"]                          # "no overlap with pick-place"
+    assert f"frictionloss overlaps ({lo['frictionloss']:.2f}–{hi['frictionloss']:.2f})" in README
+    assert lo["frictionloss"] <= SPREAD["p90"]["frictionloss"] and SPREAD["p10"]["frictionloss"] <= hi["frictionloss"]
