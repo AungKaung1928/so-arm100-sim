@@ -159,3 +159,25 @@ def test_real_centred_is_the_p10_p90_band_of_the_real_fits():
         assert not lo <= 1.0 <= hi, k
     others = [f for f in default.to_dict() if f not in ("kp", "frictionloss")]
     assert all(getattr(cfg, f) == getattr(default, f) for f in others)
+
+
+def test_real_both_spans_both_datasets_fits():
+    """DRConfig.real_both() runs from the lower p10 to the higher p90 of the per-episode fits on
+    both real datasets (runs/real2sim_spread.json pick-place, runs/real2sim_spread_stacking.json),
+    as factors of the vendored value, and contains both medians."""
+    import json
+    from pathlib import Path
+    runs = Path(__file__).parents[1] / "runs"
+    a = json.loads((runs / "real2sim_spread.json").read_text())
+    b = json.loads((runs / "real2sim_spread_stacking.json").read_text())
+    m = scene.build_model(3)
+    nominal = {"kp": float(m.actuator_gainprm[0, 0]),
+               "frictionloss": float(m.dof_frictionloss[scene.arm_qvel_index(m)][0])}
+    cfg, default = DRConfig.real_both(), DRConfig()
+    for k, tol in (("kp", 0.005), ("frictionloss", 0.05)):
+        lo, hi = getattr(cfg, k)
+        assert abs(lo - min(a["p10"][k], b["p10"][k]) / nominal[k]) < tol, k
+        assert abs(hi - max(a["p90"][k], b["p90"][k]) / nominal[k]) < tol, k
+        assert all(lo < s["median"][k] / nominal[k] < hi for s in (a, b)), k
+    others = [f for f in default.to_dict() if f not in ("kp", "frictionloss")]
+    assert all(getattr(cfg, f) == getattr(default, f) for f in others)
