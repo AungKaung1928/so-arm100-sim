@@ -1,4 +1,7 @@
 {
+ "data": "d.parquet",
+ "fit": "runs/real2sim_transfer.json",
+ "maxfev": 120,
  "episodes": [
   10,
   11,

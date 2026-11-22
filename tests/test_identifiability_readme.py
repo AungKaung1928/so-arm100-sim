@@ -74,3 +74,11 @@ def test_stacking_spread_sentence_matches_json():
     assert hi["kp"] < SPREAD["p10"]["kp"]                          # "no overlap with pick-place"
     assert f"frictionloss overlaps ({lo['frictionloss']:.2f}–{hi['frictionloss']:.2f})" in README
     assert lo["frictionloss"] <= SPREAD["p90"]["frictionloss"] and SPREAD["p10"]["frictionloss"] <= hi["frictionloss"]
+
+
+def test_spread_files_record_the_documented_inputs():
+    """Each per-episode spread JSON names the --fit it started from; DETAILS gives the same command."""
+    stack = json.loads((ROOT / "runs/real2sim_spread_stacking.json").read_text())
+    assert SPREAD["fit"] == "runs/real2sim_fit.json"
+    assert stack["fit"] == "runs/real2sim_transfer.json"
+    assert f"`scripts/real2sim_spread.py --fit {stack['fit']}`" in README

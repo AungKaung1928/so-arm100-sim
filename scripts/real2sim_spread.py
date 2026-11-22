@@ -42,7 +42,8 @@ def f(x, k):
 per = np.array([np.exp(minimize(f, x0, args=(k,), method="Nelder-Mead",
                                 options=dict(xatol=1e-2, fatol=1e-4, maxfev=a.maxfev,
                                              initial_simplex=simplex)).x) for k in ks])
-res = {"episodes": ks, "params": N, "per_episode": per.round(4).tolist(),
+res = {"data": a.parquet.split("/")[-1], "fit": a.fit, "maxfev": a.maxfev,   # inputs, so the file says how to rerun it
+       "episodes": ks, "params": N, "per_episode": per.round(4).tolist(),
        "median": dict(zip(N, np.median(per, 0).round(4).tolist())),
        "p10": dict(zip(N, np.percentile(per, 10, 0).round(4).tolist())),
        "p90": dict(zip(N, np.percentile(per, 90, 0).round(4).tolist()))}
