@@ -1,8 +1,11 @@
-"""interval() and paired() decide every 'identified' claim in the README identifiability paragraph."""
+"""interval() and paired() decide every 'identified' claim in the docs/DETAILS.md identifiability paragraph."""
 import importlib.util
 from pathlib import Path
 
 import numpy as np
+import pytest
+
+pytest.importorskip("scipy")     # the script imports it at module level: extra "real2sim"
 
 _spec = importlib.util.spec_from_file_location(
     "ident", Path(__file__).parents[1] / "scripts/real2sim_identifiability.py")
