@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-README = (ROOT / "README.md").read_text()
+README = (ROOT / "docs" / "DETAILS.md").read_text()
 FIT = json.loads((ROOT / "runs/real2sim_fit.json").read_text())
 SPREAD = json.loads((ROOT / "runs/real2sim_spread.json").read_text())
 

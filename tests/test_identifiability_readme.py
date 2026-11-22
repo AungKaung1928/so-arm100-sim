@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-README = " ".join((ROOT / "README.md").read_text().split())
+README = " ".join((ROOT / "docs" / "DETAILS.md").read_text().split())
 ID = json.loads((ROOT / "runs/real2sim_identifiability.json").read_text())
 STACK = json.loads((ROOT / "runs/real2sim_identifiability_stacking.json").read_text())
 SPREAD = json.loads((ROOT / "runs/real2sim_spread.json").read_text())

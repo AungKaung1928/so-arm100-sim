@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-README = (ROOT / "README.md").read_text()
+README = (ROOT / "docs" / "DETAILS.md").read_text()
 CELLS = {**json.loads((ROOT / "runs/expert_success.json").read_text())["cells"],
          **json.loads((ROOT / "runs/expert_success_realfit.json").read_text())["cells"]}
 HEADER = "| task | nominal | heavy | slippery | weak | laggy | noisy | small | real_fit |"

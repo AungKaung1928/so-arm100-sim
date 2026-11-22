@@ -6,7 +6,7 @@ import pytest
 from so_arm100_sim.dr import DRConfig, EVAL_PHYSICS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-README = open(os.path.join(ROOT, "README.md")).read()
+README = open(os.path.join(ROOT, "docs", "DETAILS.md")).read()
 
 
 def r(t):

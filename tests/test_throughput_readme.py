@@ -4,7 +4,7 @@ import statistics as st
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-README = (ROOT / "README.md").read_text()
+README = (ROOT / "docs" / "DETAILS.md").read_text()
 SWEEPS = [json.loads((ROOT / f"runs/throughput_s{i}.json").read_text())["rows"] for i in (1, 2, 3)]
 SUS = json.loads((ROOT / "runs/sustained.json").read_text())
 
