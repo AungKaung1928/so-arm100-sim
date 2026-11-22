@@ -27,8 +27,9 @@ def test_scaling_table():
 
 def test_summary_and_sustained():
     by = _rates()
-    for p in (1, 8):
-        assert f"| {st.mean(by[p]):,.0f} ± {st.stdev(by[p]):,.0f} |" in README, p
+    # anchored on the row label: the bare "| mean ± sd |" also occurs in the scaling table
+    for p, label in ((1, "1 process"), (8, "8 processes")):
+        assert f"| `VecEnv`, {label} | env-steps/s | {st.mean(by[p]):,.0f} ± {st.stdev(by[p]):,.0f} |" in README, p
     eff = st.mean(by[8]) / (8 * st.mean(by[1]))
     assert f"| {st.mean(by[8]):,.0f} ± {st.stdev(by[8]):,.0f} | 15 s bursts, {eff:.0%} efficiency |" in README
     lo, hi = SUS["plateau_band"]
