@@ -2,6 +2,8 @@
 runs/real2sim_fit.json) and report the per-episode spread, the input for DR ranges.
 
     python scripts/real2sim_spread.py PATH/file-000.parquet --out runs/real2sim_spread.json
+    # second dataset: its own offsets (fit_real2sim.py --dynamics-from), pick-place dynamics as the start
+    python scripts/real2sim_spread.py STACKING.parquet --fit runs/real2sim_transfer.json --out runs/real2sim_spread_stacking.json
 """
 import argparse
 import json
