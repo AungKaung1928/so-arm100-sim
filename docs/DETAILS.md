@@ -332,9 +332,14 @@ an interpolation cell, not a transfer cell. No policy has been trained with it y
 `DRConfig.real_centred()` makes the opposite trade: kp and frictionloss narrowed onto the p10–p90
 band of the same fits (kp 0.65–0.77 ×, frictionloss 2.2–2.8 ×; `tests/test_dr.py` derives the band
 from `runs/real2sim_spread.json`), so `nominal` is outside it. The paired A/B in
-[so-arm100-rl](https://github.com/AungKaung1928/so-arm100-rl) (3 training seeds, numbers and test
+[so-arm100-rl](https://github.com/AungKaung1928/so-arm100-rl) (4 training seeds, numbers and test
 there) finds no measurable difference against the default DR on `nominal` or `real_fit`, and a lead
 on `laggy` only.
+
+`DRConfig.real_both()` spans the per-episode fits of both datasets (kp 0.38–0.77 ×, frictionloss
+1.7–2.8 ×; `tests/test_dr.py` derives it from both spread files), so the `weak` cell (kp 0.45 ×) is
+inside it. In the same A/B setup in so-arm100-rl (3 training seeds) a policy trained with it is
+behind the default DR on `nominal` and `real_fit` in every seed.
 
 Transfer to a second real dataset, `lerobot/svla_so100_stacking` (`--dynamics-from`, `runs/real2sim_transfer.json`):
 offsets refit on its episodes 0–9, dynamics taken unchanged from the pick-place fit, scored on
