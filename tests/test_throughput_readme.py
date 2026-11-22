@@ -29,6 +29,8 @@ def test_summary_and_sustained():
     by = _rates()
     for p in (1, 8):
         assert f"| {st.mean(by[p]):,.0f} ± {st.stdev(by[p]):,.0f} |" in README, p
+    eff = st.mean(by[8]) / (8 * st.mean(by[1]))
+    assert f"| {st.mean(by[8]):,.0f} ± {st.stdev(by[8]):,.0f} | 15 s bursts, {eff:.0%} efficiency |" in README
     lo, hi = SUS["plateau_band"]
     assert f"| {SUS['plateau_mean']:,.0f} ({lo:,.0f} – {hi:,.0f}) | {len(SUS['rates'])} x 15 s" in README
     drop = f"{1 - SUS['plateau_mean'] / SUS['rates'][0]:.0%}"
