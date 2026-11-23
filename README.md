@@ -24,7 +24,7 @@ git clone <this repo URL>
 cd so-arm100-sim
 python3 -m venv .venv && . .venv/bin/activate   # first time only
 pip install -e ".[dev]"                         # first time only: mujoco, numpy, pytest
-python -m pytest -q tests                       # 97 passed, 4 skipped (need GL or the real2sim extra), ~45 s
+python -m pytest -q tests                       # 98 passed, 4 skipped (need GL or the real2sim extra), ~45 s
 ```
 
 Measurement commands, demonstration recording and Docker: [docs/DETAILS.md#reproducing](docs/DETAILS.md#reproducing).
