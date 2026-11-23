@@ -16,4 +16,8 @@ COPY verify.sh ./
 
 RUN pip install --no-cache-dir -e ".[dev]"
 
+# README/DETAILS <-> runs/*.json tests read these.
+COPY docs ./docs
+COPY runs ./runs
+
 CMD ["python", "-m", "pytest", "tests"]

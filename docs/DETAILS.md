@@ -42,7 +42,7 @@ flowchart LR
 | `VecEnv`, 1 process | env-steps/s | 1,954 ± 49 | lift task, 15 s bursts, 3 sweeps |
 | `VecEnv`, 8 processes | env-steps/s | 7,302 ± 569 | 15 s bursts, 47% efficiency |
 | `VecEnv`, 8 processes | env-steps/s, sustained | 5,361 (5,257 – 5,465) | 12 x 15 s, about 28% below its first window |
-| Docker image | tests inside | 59 passed, 4 skipped | 423 MB, built 2026-09-23 |
+| Docker image | tests inside | 95 passed, 7 skipped | 419 MB, built 2026-11-23 |
 
 ### Key points
 
@@ -393,7 +393,7 @@ scripts. Rendering needs a GL context: `MUJOCO_GL=glfw` with a display, or
 docker build -t so-arm100-sim . && docker run --rm so-arm100-sim
 ```
 
-Image built on 2026-09-23 and its default command passed inside it (59 tests passed, 4 skipped), image size 423 MB.
+Image built on 2026-11-23 and its default command passed inside it (95 tests passed, 7 skipped), image size 419 MB.
 
 <details><summary><b>Recording demonstrations, and the limits</b></summary>
 
